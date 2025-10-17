@@ -31,6 +31,24 @@
     <Filter Include="Archivos de encabezado\Game\Screen">
       <UniqueIdentifier>{fc69fbc7-a60f-46de-ab42-283371ef357f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Game\Ship">
+      <UniqueIdentifier>{04a383b8-33f0-4eb9-8b93-3b30ed21cc29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Game\Ship">
+      <UniqueIdentifier>{f1ce7fa4-9ba2-4372-85e0-651d540f2c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Game\Math">
+      <UniqueIdentifier>{87ebe045-42a7-4065-947e-1e7112703cd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Game\Math\Vector">
+      <UniqueIdentifier>{a49ba19a-f68e-453c-8be0-eaa8fb5440c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Game\Math">
+      <UniqueIdentifier>{035eab66-ed5c-4f45-8cd9-b5ce9a145386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Game\Math\Vector">
+      <UniqueIdentifier>{f7ccce8f-7ee2-4d60-8461-8726da6c1c23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -45,6 +63,12 @@
     <ClCompile Include="src\Game\Screen\Screen.cpp">
       <Filter>Archivos de origen\Game\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Ship\Ship.cpp">
+      <Filter>Archivos de origen\Game\Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Math\Vector\Vector.cpp">
+      <Filter>Archivos de origen\Game\Math\Vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h">
@@ -55,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\Screen\Screen.h">
       <Filter>Archivos de encabezado\Game\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Ship\Ship.h">
+      <Filter>Archivos de encabezado\Game\Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Math\Vector\Vector.h">
+      <Filter>Archivos de encabezado\Game\Math\Vector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
