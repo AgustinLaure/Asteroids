@@ -21,4 +21,15 @@ namespace vector
 
 		return result;
 	}
+
+	Vector2 getVectorMult(Vector2 v, float mult)
+	{
+		Vector2 result = {};
+
+		result.x = v.x * mult;
+		result.y = v.y * mult;
+
+		return result;
+	}
+
 }

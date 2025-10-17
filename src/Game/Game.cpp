@@ -3,35 +3,39 @@
 #include "raylib.h"
 
 #include "Screen.h"
-#include "Ship.h"
 
 namespace game
 {
 	void game()
 	{
-		screen::openWindow();
+		float delta = 0.0f;
 
 		ship::Ship ship;
-
 		ship::init(ship);
+
+		screen::openWindow();
 
 		while (!WindowShouldClose())
 		{
-			update();
-			draw();
+			game::update(ship, delta);
+			game::draw(ship);
 		}
 
 		screen::closeWindow();
 	}
 
-	void update()
+	void update(ship::Ship& ship, float& delta)
 	{
-
+		delta = GetFrameTime();
+		ship::update(ship, delta);
 	}
 
-	void draw()
+	void draw(ship::Ship ship)
 	{
 		BeginDrawing();
+
+		ship::draw(ship);
+
 		ClearBackground(BLACK);
 
 		EndDrawing();
