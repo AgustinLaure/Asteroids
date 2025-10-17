@@ -3,12 +3,17 @@
 #include "raylib.h"
 
 #include "Screen.h"
+#include "Ship.h"
 
 namespace game
 {
 	void game()
 	{
 		screen::openWindow();
+
+		ship::Ship ship;
+
+		ship::init(ship);
 
 		while (!WindowShouldClose())
 		{
