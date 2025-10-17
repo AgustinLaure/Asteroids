@@ -9,5 +9,6 @@ namespace vector
 	};
 
 	Vector2f getVectorSum(Vector2f v1, Vector2f v2);
+	Vector2f getVectorSub(Vector2f v1, Vector2f v2);
 }
 
