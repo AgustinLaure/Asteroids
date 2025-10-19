@@ -98,12 +98,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)include/raylib-5.5_win64_msvc16/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)include/raylib-5.5_win64_msvc16/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\include\sigil-vc2015\*.dll" "$(OutDir)"  /y
-xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
+      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,8 +126,7 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\include\sigil-vc2015\*.dll" "$(OutDir)"  /y
-xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
+      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,12 +141,11 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)include/raylib-5.5_win64_msvc16/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)include/raylib-5.5_win64_msvc16/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\include\sigil-vc2015\*.dll" "$(OutDir)"  /y
-xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
+      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -172,8 +169,7 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\include\sigil-vc2015\*.dll" "$(OutDir)"  /y
-xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
+      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
