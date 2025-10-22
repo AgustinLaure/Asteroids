@@ -1,90 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="src">
+      <UniqueIdentifier>{d2b23478-3478-4a2a-a323-fddef530f342}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="src\RunGame">
+      <UniqueIdentifier>{b2d16d6e-af5a-463f-9ce2-e8438879d7e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{f45b2313-48b6-4fd2-906e-2680e6c550f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Game">
-      <UniqueIdentifier>{7b51faf8-6c8b-420b-b87b-cee582d8cf7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\RunGame">
-      <UniqueIdentifier>{1137beb1-b1a4-422c-adf7-34bba632c1d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Game">
-      <UniqueIdentifier>{41b4a8f0-5cf2-4055-ac4c-d516286c81d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\RunGame">
-      <UniqueIdentifier>{5130d16f-3dfa-4fb3-a7e8-1e8c6b71b2e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Game\Screen">
-      <UniqueIdentifier>{0aba5e35-6bde-4242-a3bc-12d1c41bfee1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Game\Screen">
-      <UniqueIdentifier>{fc69fbc7-a60f-46de-ab42-283371ef357f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Game\Ship">
-      <UniqueIdentifier>{04a383b8-33f0-4eb9-8b93-3b30ed21cc29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Game\Ship">
-      <UniqueIdentifier>{f1ce7fa4-9ba2-4372-85e0-651d540f2c15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Game\Math">
+    <Filter Include="src\Game\Math">
       <UniqueIdentifier>{87ebe045-42a7-4065-947e-1e7112703cd2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Game\Math\Vector">
+    <Filter Include="src\Game\Math\Vector">
       <UniqueIdentifier>{a49ba19a-f68e-453c-8be0-eaa8fb5440c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Game\Math">
-      <UniqueIdentifier>{035eab66-ed5c-4f45-8cd9-b5ce9a145386}</UniqueIdentifier>
+    <Filter Include="src\Game\Screen">
+      <UniqueIdentifier>{0aba5e35-6bde-4242-a3bc-12d1c41bfee1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Game\Math\Vector">
-      <UniqueIdentifier>{f7ccce8f-7ee2-4d60-8461-8726da6c1c23}</UniqueIdentifier>
+    <Filter Include="src\Game\Ship">
+      <UniqueIdentifier>{04a383b8-33f0-4eb9-8b93-3b30ed21cc29}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game\Game.cpp">
-      <Filter>Archivos de origen\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RunGame\RunGame.cpp">
-      <Filter>Archivos de origen\RunGame</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Screen\Screen.cpp">
-      <Filter>Archivos de origen\Game\Screen</Filter>
+      <Filter>src\Game\Screen</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Ship\Ship.cpp">
-      <Filter>Archivos de origen\Game\Ship</Filter>
+      <Filter>src\Game\Ship</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Math\Vector\Vector.cpp">
-      <Filter>Archivos de origen\Game\Math\Vector</Filter>
+      <Filter>src\Game\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RunGame\RunGame.cpp">
+      <Filter>src\RunGame</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Game.cpp">
+      <Filter>src\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game\Game.h">
-      <Filter>Archivos de encabezado\Game</Filter>
-    </ClInclude>
     <ClInclude Include="src\RunGame\RunGame.h">
-      <Filter>Archivos de encabezado\RunGame</Filter>
+      <Filter>src\RunGame</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Screen\Screen.h">
-      <Filter>Archivos de encabezado\Game\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\Ship\Ship.h">
-      <Filter>Archivos de encabezado\Game\Ship</Filter>
+    <ClInclude Include="src\Game\Game.h">
+      <Filter>src\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Math\Vector\Vector.h">
-      <Filter>Archivos de encabezado\Game\Math\Vector</Filter>
+      <Filter>src\Game\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Screen\Screen.h">
+      <Filter>src\Game\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Ship\Ship.h">
+      <Filter>src\Game\Ship</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
