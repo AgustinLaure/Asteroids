@@ -7,16 +7,10 @@
 
 namespace game
 {
-	
 	static void update(ship::Ship& ship, float& delta);
 	static void draw(ship::Ship ship);
-	static void game();
+	
 	void runGame()
-	{
-		game();
-	}
-
-	static void game()
 	{
 		float delta = 0.0f;
 
