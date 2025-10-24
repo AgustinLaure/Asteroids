@@ -10,7 +10,7 @@ namespace ship
 	const Vector2 shipInitialDir = {0,-1};
 	const Vector2 shipInitialVelocity = { 0,0 };
 	const float shipInitialRotation = 270.0f;
-	const float shipAccelPerFrame = 0.50f;
+	const float shipAccelPerFrame = 0.1f;
 
 	struct Ship
 	{

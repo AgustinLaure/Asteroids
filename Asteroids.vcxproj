@@ -137,7 +137,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)include/raylib-5.5_win64_msvc16/include;$(ProjectDir)src/RunGame;$(ProjectDir)/src/Game;$(PorjectDir)src/Game/Screen; $(ProjectDir)src/Game/Math/Vector; $(ProjectDir)src/Game/Ship</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include/raylib-5.5_win64_msvc16/include;$(ProjectDir)src/RunGame;$(ProjectDir)/src/Game;$(PorjectDir)src/Game/Screen;$(ProjectDir)src/Game/Math/Vector;$(ProjectDir)src/Game/Ship;$(ProjectDir)src/Game/Math/Form</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -158,7 +158,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)include/raylib-5.5_win64_msvc16/include;$(ProjectDir)src/RunGame;$(ProjectDir)/src/Game;$(PorjectDir)src/Game/Screen; $(ProjectDir)src/Game/Math/Vector; $(ProjectDir)src/Game/Ship</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include/raylib-5.5_win64_msvc16/include;$(ProjectDir)src/RunGame;$(ProjectDir)/src/Game;$(PorjectDir)src/Game/Screen;$(ProjectDir)src/Game/Math/Vector;$(ProjectDir)src/Game/Ship;$(ProjectDir)src/Game/Math/Form</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -176,6 +176,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Game.cpp" />
+    <ClCompile Include="src\Game\Math\Form\Form.cpp" />
     <ClCompile Include="src\Game\Math\Vector\Vector.cpp" />
     <ClCompile Include="src\Game\Screen\Screen.cpp" />
     <ClCompile Include="src\Game\Ship\Ship.cpp" />
@@ -184,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h" />
+    <ClInclude Include="src\Game\Math\Form\Form.h" />
     <ClInclude Include="src\Game\Math\Vector\Vector.h" />
     <ClInclude Include="src\Game\Screen\Screen.h" />
     <ClInclude Include="src\Game\Ship\Ship.h" />

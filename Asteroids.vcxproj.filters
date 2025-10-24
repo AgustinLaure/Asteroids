@@ -22,6 +22,9 @@
     <Filter Include="src\Game\Ship">
       <UniqueIdentifier>{04a383b8-33f0-4eb9-8b93-3b30ed21cc29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Game\Math\Form">
+      <UniqueIdentifier>{7ffd2153-b2f0-4d21-bffc-b694508bf35a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Screen\Screen.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="src\Game\Game.cpp">
       <Filter>src\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Math\Form\Form.cpp">
+      <Filter>src\Game\Math\Form</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RunGame\RunGame.h">
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Ship\Ship.h">
       <Filter>src\Game\Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Math\Form\Form.h">
+      <Filter>src\Game\Math\Form</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
