@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-namespace Form
+namespace form
 {
 	struct Circle
 	{

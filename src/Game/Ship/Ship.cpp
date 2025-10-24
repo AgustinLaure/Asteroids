@@ -4,6 +4,9 @@
 
 #include "raylib.h"
 
+#include "Game/Math/Degree/Degree.h"
+#include "Game/Screen/Screen.h"
+
 namespace ship
 {
 	void init(Ship& ship)
@@ -17,7 +20,9 @@ namespace ship
 	void update(Ship& ship, float& delta)
 	{
 		updateLookDir(ship);
+		updateRotation(ship);
 		move(ship, delta);
+		outOfScreen(ship);
 	}
 
 	void draw(Ship ship)
@@ -42,9 +47,30 @@ namespace ship
 
 	void updateRotation(Ship& ship)
 	{
-		if (ship.lookDir.x == 0)
-		{
+		ship.rotation = degree::getDegree(ship.pos, GetMousePosition());
+	}
 
+	void outOfScreen(Ship& ship)
+	{
+		float screenWidth = static_cast<float>(GetScreenWidth());
+		float screenHeight = static_cast<float>(GetScreenHeight());
+
+		if (ship.pos.x >= screenWidth)
+		{
+			ship.pos.x = 0;
+		}
+		else if (ship.pos.x <= 0)
+		{
+			ship.pos.x = screenWidth;
+		}
+
+		if (ship.pos.y >= screenHeight)
+		{
+			ship.pos.y = 0;
+		}
+		else if (ship.pos.y <= 0)
+		{
+			ship.pos.y = screenHeight;
 		}
 	}
 }

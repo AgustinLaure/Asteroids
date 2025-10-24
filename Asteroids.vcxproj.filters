@@ -22,6 +22,9 @@
     <Filter Include="src\Game\Math\Form">
       <UniqueIdentifier>{7ffd2153-b2f0-4d21-bffc-b694508bf35a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Game\Math\Degree">
+      <UniqueIdentifier>{f99baa24-a9bf-4bc4-acf2-f92b2142f0e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Screen\Screen.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="src\Game\Math\Form\Form.cpp">
       <Filter>src\Game\Math\Form</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Math\Degree\Degree.cpp">
+      <Filter>src\Game\Math\Degree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h">
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Math\Form\Form.h">
       <Filter>src\Game\Math\Form</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Math\Degree\Degree.h">
+      <Filter>src\Game\Math\Degree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

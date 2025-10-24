@@ -26,5 +26,6 @@ namespace ship
 	void move(Ship& ship, float delta);
 	void updateLookDir(Ship& ship);
 	void updateRotation(Ship& ship);
+	void outOfScreen(Ship& ship);
 }
 
