@@ -1,8 +1,8 @@
-#include "RunGame.h"
+#include "Game/Game.h"
 
 int main()
 {
-    runGame::runGame();
+    game::runGame();
 
     return 0;
 }

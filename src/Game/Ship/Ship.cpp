@@ -1,4 +1,4 @@
-#include "Ship.h"
+#include "Game/Ship/Ship.h"
 
 #include <iostream>
 

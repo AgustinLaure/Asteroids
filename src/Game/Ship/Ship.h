@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector.h"
+#include "Game/Math/Vector/Vector.h"
 
 namespace ship
 {
@@ -17,7 +17,7 @@ namespace ship
 		Vector2 pos = {};
 		Vector2 lookDir = {};
 		Vector2 velocity = {};
-		float rotation;
+		float rotation = 0.0f;
 	};
 
 	void init(Ship& ship);

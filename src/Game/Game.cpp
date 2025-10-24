@@ -1,12 +1,22 @@
-#include "Game.h"
+#include "Game/Game.h"
 
 #include "raylib.h"
 
-#include "Screen.h"
+#include "Game/Screen/Screen.h"
+#include "Game/Ship/Ship.h"
 
 namespace game
 {
-	void game()
+	
+	static void update(ship::Ship& ship, float& delta);
+	static void draw(ship::Ship ship);
+	static void game();
+	void runGame()
+	{
+		game();
+	}
+
+	static void game()
 	{
 		float delta = 0.0f;
 
@@ -24,13 +34,13 @@ namespace game
 		screen::closeWindow();
 	}
 
-	void update(ship::Ship& ship, float& delta)
+	static void update(ship::Ship& ship, float& delta)
 	{
 		delta = GetFrameTime();
 		ship::update(ship, delta);
 	}
 
-	void draw(ship::Ship ship)
+	static void draw(ship::Ship ship)
 	{
 		BeginDrawing();
 

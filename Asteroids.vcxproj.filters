@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{d2b23478-3478-4a2a-a323-fddef530f342}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\RunGame">
-      <UniqueIdentifier>{b2d16d6e-af5a-463f-9ce2-e8438879d7e8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Game">
       <UniqueIdentifier>{f45b2313-48b6-4fd2-906e-2680e6c550f7}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\RunGame\RunGame.cpp">
-      <Filter>src\RunGame</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Game.cpp">
       <Filter>src\Game</Filter>
     </ClCompile>
@@ -50,9 +44,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\RunGame\RunGame.h">
-      <Filter>src\RunGame</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Game.h">
       <Filter>src\Game</Filter>
     </ClInclude>
