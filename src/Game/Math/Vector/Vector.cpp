@@ -1,5 +1,7 @@
 #include "Vector.h"
 
+#include <math.h>
+
 namespace vector
 {
 	Vector2 getVectorSum(Vector2 v1, Vector2 v2)
@@ -30,6 +32,33 @@ namespace vector
 		result.y = v.y * mult;
 
 		return result;
+	}
+
+	float getMagnitude(Vector2 v)
+	{
+		float magnitude = static_cast<float>(sqrt(v.x * v.x + v.y * v.y));
+
+		return magnitude;
+	}
+
+	Vector2 getNormalized(Vector2 v)
+	{
+		Vector2 normalized = v;
+			
+		float vMagnitude = getMagnitude(v);
+
+		if (vMagnitude > 0)
+		{
+			normalized.x /= vMagnitude;
+			normalized.y /= vMagnitude;
+		}
+		else
+		{
+			normalized.x = 0;
+			normalized.y = 0;
+		}
+
+		return normalized;
 	}
 
 }

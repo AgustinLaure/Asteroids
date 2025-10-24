@@ -9,12 +9,14 @@ namespace ship
 	void init(Ship& ship)
 	{
 		ship.pos = shipInitialPos;
-		ship.dir = shipInitialDir;
+		ship.lookDir = shipInitialDir;
+		ship.velocity = shipInitialVelocity;
 		ship.rotation = shipInitialRotation;
 	}
 
 	void update(Ship& ship, float& delta)
 	{
+		updateLookDir(ship);
 		move(ship, delta);
 	}
 
@@ -25,13 +27,24 @@ namespace ship
 
 	void move(Ship& ship, float delta)
 	{
-		Vector2 shipMove = {};
-		shipMove = vector::getVectorMult(ship.dir, ship.speed);
-		shipMove = vector::getVectorMult(shipMove, ship.accel);
-		shipMove = vector::getVectorMult(shipMove, delta);
-		ship.accel += shipAccelPerFrame;
+		if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+		{
+			ship.velocity = vector::getVectorSum(ship.velocity, vector::getVectorMult(vector::getVectorMult(ship.lookDir, shipAccelPerFrame), delta));
+		}
 
-		std::cout << delta;
-		ship.pos = vector::getVectorSum(ship.pos, shipMove);
+		ship.pos = vector::getVectorSum(ship.pos, ship.velocity);
+	}
+
+	void updateLookDir(Ship& ship)
+	{
+		ship.lookDir = vector::getNormalized(vector::getVectorSub(GetMousePosition(), ship.pos));
+	}
+
+	void updateRotation(Ship& ship)
+	{
+		if (ship.lookDir.x == 0)
+		{
+
+		}
 	}
 }
