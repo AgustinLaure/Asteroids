@@ -9,5 +9,6 @@ namespace vector
 	Vector2 getVectorMult(Vector2 v, float mult);
 	float getMagnitude(Vector2 v);
 	Vector2 getNormalized(Vector2 v);
+	float getDegree(Vector2 pos1, Vector2 pos2);
 }
 
