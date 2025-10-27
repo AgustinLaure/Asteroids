@@ -3,6 +3,8 @@
 #include "raylib.h"
 
 #include "Game/Math/Vector/Vector.h"
+#include "Game/Math/Form/Form.h"
+#include "Game/Bullet/Bullet.h"
 
 namespace ship
 {
@@ -13,8 +15,11 @@ namespace ship
 	const Vector2 shipInitialVelocity = { 0,0 };
 	const float shipInitialRotation = 270.0f;
 	const float shipAccelPerFrame = 0.1f;
+	const int maxBullets = 5;
+	const float distanceBetweenBullet = 30.0f;
 
 	const MouseButton moveShipButton = MOUSE_RIGHT_BUTTON;
+	const MouseButton shootShipButton = MOUSE_LEFT_BUTTON;
 
 	struct Ship
 	{
@@ -22,6 +27,9 @@ namespace ship
 		Vector2 lookDir = {};
 		Vector2 velocity = {};
 		float rotation = 0.0f;
+		form::Circle collision;
+		Color color = WHITE;
+		bullet::Bullet bullets[maxBullets];
 	};
 
 	void init(Ship& ship);
@@ -31,5 +39,6 @@ namespace ship
 	void updateLookDir(Ship& ship);
 	void updateRotation(Ship& ship);
 	void outOfScreen(Ship& ship);
+	void shoot(Ship& ship);
 }
 

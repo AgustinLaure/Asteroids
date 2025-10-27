@@ -14,19 +14,28 @@ namespace ship
 		ship.lookDir = shipInitialDir;
 		ship.velocity = shipInitialVelocity;
 		ship.rotation = shipInitialRotation;
+		ship.collision.pos = ship.pos;
+		ship.collision.radius = shipRadius;
+		bullet::initBullets(ship.bullets, maxBullets);
 	}
 
 	void update(Ship& ship, float& delta)
 	{
+		shoot(ship);
 		updateLookDir(ship);
 		updateRotation(ship);
-		move(ship, delta);
+		bullet::update(ship.bullets, ship::maxBullets, delta);
+
 		outOfScreen(ship);
+		move(ship, delta);
 	}
 
 	void draw(Ship ship)
 	{
-		DrawPolyLines(ship.pos, shipSides,shipRadius,ship.rotation, WHITE);
+		DrawPolyLines(ship.pos, shipSides, shipRadius, ship.rotation, WHITE);
+		DrawCircleV(ship.pos, shipRadius, ship.color);
+
+		bullet::draw(ship.bullets, ship::maxBullets);
 	}
 
 	void move(Ship& ship, float delta)
@@ -70,6 +79,24 @@ namespace ship
 		else if (ship.pos.y <= 0)
 		{
 			ship.pos.y = screenHeight;
+		}
+	}
+
+	void shoot(Ship& ship)
+	{
+		Vector2 bulletStartPos = vector::getVectorSum(ship.pos, vector::getVectorMult(ship.lookDir, distanceBetweenBullet));
+		
+		if (IsMouseButtonPressed(shootShipButton))
+		{
+			for (int i = 0; i < maxBullets; i++)
+			{
+				if (!ship.bullets[i].isOn)
+				{
+					bullet::shoot(ship.bullets[i], bulletStartPos, ship.lookDir);
+
+					return;
+				}
+			}
 		}
 	}
 }
