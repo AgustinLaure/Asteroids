@@ -17,6 +17,7 @@ namespace ship
 	const float shipAccelPerFrame = 0.1f;
 	const int maxBullets = 5;
 	const float distanceBetweenBullet = 30.0f;
+	const float timeBetweenShots = 0.25f;
 
 	const MouseButton moveShipButton = MOUSE_RIGHT_BUTTON;
 	const MouseButton shootShipButton = MOUSE_LEFT_BUTTON;
@@ -30,6 +31,7 @@ namespace ship
 		form::Circle collision;
 		Color color = WHITE;
 		bullet::Bullet bullets[maxBullets];
+		float shootCooldown;
 	};
 
 	void init(Ship& ship);
@@ -39,6 +41,6 @@ namespace ship
 	void updateLookDir(Ship& ship);
 	void updateRotation(Ship& ship);
 	void outOfScreen(Ship& ship);
-	void shoot(Ship& ship);
+	void shoot(Ship& ship, float delta);
 }
 

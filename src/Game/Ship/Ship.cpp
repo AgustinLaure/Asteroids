@@ -17,11 +17,12 @@ namespace ship
 		ship.collision.pos = ship.pos;
 		ship.collision.radius = shipRadius;
 		bullet::initBullets(ship.bullets, maxBullets);
+		ship.shootCooldown = timeBetweenShots;
 	}
 
 	void update(Ship& ship, float& delta)
 	{
-		shoot(ship);
+		shoot(ship, delta);
 		updateLookDir(ship);
 		updateRotation(ship);
 		bullet::update(ship.bullets, ship::maxBullets, delta);
@@ -82,17 +83,20 @@ namespace ship
 		}
 	}
 
-	void shoot(Ship& ship)
+	void shoot(Ship& ship, float delta)
 	{
 		Vector2 bulletStartPos = vector::getVectorSum(ship.pos, vector::getVectorMult(ship.lookDir, distanceBetweenBullet));
 		
-		if (IsMouseButtonPressed(shootShipButton))
+		ship.shootCooldown -= 1 * delta;
+
+		if (IsMouseButtonPressed(shootShipButton) && ship.shootCooldown <= 0)
 		{
 			for (int i = 0; i < maxBullets; i++)
 			{
 				if (!ship.bullets[i].isOn)
 				{
 					bullet::shoot(ship.bullets[i], bulletStartPos, ship.lookDir);
+					ship.shootCooldown = timeBetweenShots;
 
 					return;
 				}
