@@ -80,7 +80,6 @@ namespace vector
 			{
 				degree = 360 - degree;
 			}
-
 		}
 		else if (pos2.x < pos1.x)
 		{

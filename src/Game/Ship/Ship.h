@@ -1,5 +1,7 @@
 #pragma once
 
+#include "raylib.h"
+
 #include "Game/Math/Vector/Vector.h"
 
 namespace ship
@@ -11,6 +13,8 @@ namespace ship
 	const Vector2 shipInitialVelocity = { 0,0 };
 	const float shipInitialRotation = 270.0f;
 	const float shipAccelPerFrame = 0.1f;
+
+	const MouseButton moveShipButton = MOUSE_RIGHT_BUTTON;
 
 	struct Ship
 	{

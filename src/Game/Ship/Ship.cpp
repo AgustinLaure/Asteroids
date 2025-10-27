@@ -4,7 +4,6 @@
 
 #include "raylib.h"
 
-#include "Game/Math/Degree/Degree.h"
 #include "Game/Screen/Screen.h"
 
 namespace ship
@@ -32,7 +31,7 @@ namespace ship
 
 	void move(Ship& ship, float delta)
 	{
-		if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+		if (IsMouseButtonDown(moveShipButton))
 		{
 			ship.velocity = vector::getVectorSum(ship.velocity, vector::getVectorMult(vector::getVectorMult(ship.lookDir, shipAccelPerFrame), delta));
 		}
@@ -47,7 +46,7 @@ namespace ship
 
 	void updateRotation(Ship& ship)
 	{
-		ship.rotation = degree::getDegree(ship.pos, GetMousePosition());
+		ship.rotation = vector::getDegree(ship.pos, GetMousePosition());
 	}
 
 	void outOfScreen(Ship& ship)

@@ -22,9 +22,6 @@
     <Filter Include="src\Game\Math\Form">
       <UniqueIdentifier>{7ffd2153-b2f0-4d21-bffc-b694508bf35a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Game\Math\Degree">
-      <UniqueIdentifier>{f99baa24-a9bf-4bc4-acf2-f92b2142f0e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Game\Bullet">
       <UniqueIdentifier>{5dad1de8-8a77-4816-bc2f-dce75de1716a}</UniqueIdentifier>
     </Filter>
@@ -48,9 +45,6 @@
     <ClCompile Include="src\Game\Math\Form\Form.cpp">
       <Filter>src\Game\Math\Form</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Math\Degree\Degree.cpp">
-      <Filter>src\Game\Math\Degree</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Bullet\Bullet.cpp">
       <Filter>src\Game\Bullet</Filter>
     </ClCompile>
@@ -70,9 +64,6 @@
     </ClInclude>
     <ClInclude Include="src\Game\Math\Form\Form.h">
       <Filter>src\Game\Math\Form</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\Math\Degree\Degree.h">
-      <Filter>src\Game\Math\Degree</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Bullet\Bullet.h">
       <Filter>src\Game\Bullet</Filter>
