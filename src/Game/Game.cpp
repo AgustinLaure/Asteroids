@@ -144,26 +144,155 @@ namespace game
 
 		static void draw(button::Button pauseButtons[], Font gameFont)
 		{
-			BeginDrawing();
-
 			for (int i = 0; i < maxButtons; i++)
 			{
 				button::draw(pauseButtons[i], gameFont);
 			}
 
 			DrawTextEx(gameFont, pauseText.text.c_str(), pauseText.pos, pauseText.fontSize, pauseText.spacing, pauseText.color);
-
-			EndDrawing();
 		}
 	}
 
+	namespace lost
+	{
+		enum class Option
+		{
+			Back,
+			Restart
+		};
+
+		const int maxButtons = 2;
+
+		const MouseButton selectButton = MOUSE_LEFT_BUTTON;
+
+		const int optionsFontSize = 45;
+		const int optionsHeightPos = 475;
+
+		const button::Button buttonsConst[maxButtons] =
+		{
+			//button1
+			{
+				//body
+				{
+					100.0f,						//width
+					optionsFontSize,			//height
+					{350,optionsHeightPos}		//pos
+				},
+			//text
+			{
+				{},								//pos
+				"Back",							//text
+				optionsFontSize,				//fontSize
+				2,								//spacing
+				RED								//color
+			},
+			//color
+			WHITE,
+			//isPressed
+			false
+			},
+			//button2
+			{
+				//body
+				{
+					165.0f,
+					optionsFontSize,
+					{550,optionsHeightPos}
+				},
+			//text
+			{
+				{},
+				"Restart",
+				optionsFontSize,
+				2,
+				RED
+			},
+			//color
+			WHITE,
+			//isPressed
+			false
+			},
+		};
+
+		const int lostHeightPos = 175;
+
+		const text::Text lostText =
+		{
+			{425,lostHeightPos},
+			"You lost",
+			60,
+			2,
+			WHITE
+		};
+
+		static void initButtons(button::Button loseButtons[]);
+		static void update(button::Button loseButtons[], gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements);
+		static void draw(button::Button loseButtons[], Font gameFont);
+
+		static void initButtons(button::Button pauseButtons[])
+		{
+			for (int i = 0; i < maxButtons; i++)
+			{
+				float width = buttonsConst[i].body.width;
+				float height = buttonsConst[i].body.height;
+				Vector2 pos = buttonsConst[i].body.pos;
+				std::string text = buttonsConst[i].text.text;
+				float fontSize = buttonsConst[i].text.fontSize;
+				float spacing = buttonsConst[i].text.spacing;
+				Color textColor = buttonsConst[i].text.color;
+				Color bckgColor = buttonsConst[i].color;
+
+				button::init(pauseButtons[i], width, height, pos, text, fontSize, spacing, textColor, bckgColor);
+			}
+		}
+
+		static void update(button::Button loseButtons[], gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements)
+		{
+			for (int i = 0; i < maxButtons; i++)
+			{
+				loseButtons[i].isPressed = false;
+			}
+
+			for (int i = 0; i < maxButtons; i++)
+			{
+				if (IsMouseButtonPressed(selectButton))
+				{
+					if (form::isPointCollidingRect(GetMousePosition(), loseButtons[i].body))
+					{
+						loseButtons[i].isPressed = true;
+					}
+				}
+
+				if (loseButtons[static_cast<int>(Option::Back)].isPressed)
+				{
+					currentScene = gameScene::Scene::MainMenu;
+					ignoreMouse = true;
+				}
+				else if (loseButtons[static_cast<int>(Option::Restart)].isPressed)
+				{
+					resetElements = true;
+					ignoreMouse = true;
+				}
+			}
+		}
+
+		static void draw(button::Button loseButtons[], Font gameFont)
+		{
+			for (int i = 0; i < maxButtons; i++)
+			{
+				button::draw(loseButtons[i], gameFont);
+			}
+
+			DrawTextEx(gameFont, lostText.text.c_str(), lostText.pos, lostText.fontSize, lostText.spacing, lostText.color);
+		}
+	}
 	const float timeBetweenInput = 0.5f;
 
 	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta);
 	static void drawPoints(int points);
 	static void drawHp(int hp);
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[]);
-	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], float& asteroidsCooldown, bool& isGamePaused, gameScene::Scene& currentScene, Font gameFont, bool& sceneJustChanged, float delta);
+	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], button::Button loseButtons[], float& asteroidsCooldown, bool& isGamePaused, bool& isGameLost, gameScene::Scene& currentScene, Font gameFont, bool& ignoreMouse, bool& resetElements, float delta);
 	static void mainMenu(gameScene::Scene& currentScene, mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont, bool ignoreMouse);
 	static void resetElements(ship::Ship& ship, asteroid::Asteroid asteroids[]);
 
@@ -192,20 +321,25 @@ namespace game
 
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[])
 	{
-		BeginDrawing();
-		ClearBackground(BLACK);
-
 		ship::draw(ship);
 		asteroid::draw(asteroids);
 		drawHp(ship.hp);
 		drawPoints(ship.points);
-
-		EndDrawing();
 	}
 
-	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], float& asteroidsCooldown, bool& isGamePaused, gameScene::Scene& currentScene, Font gameFont, bool& ignoreMouse, float delta)
+	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], button::Button loseButtons[], float& asteroidsCooldown, bool& isGamePaused, bool& isGameLost, gameScene::Scene& currentScene, Font gameFont, bool& ignoreMouse, bool& resetElements, float delta)
 	{
-		if (!isGamePaused)
+		isGameLost = !ship.isAlive;
+
+		if (isGameLost)
+		{
+			lost::update(loseButtons, currentScene, ignoreMouse, resetElements);
+		}
+		else if (isGamePaused)
+		{
+			pause::update(pauseButtons, currentScene, isGamePaused, ignoreMouse);
+		}
+		else
 		{
 			update(ship, asteroids, asteroidsCooldown, delta);
 
@@ -214,19 +348,22 @@ namespace game
 				isGamePaused = true;
 			}
 		}
-		else
-		{
-			pause::update(pauseButtons, currentScene, isGamePaused, ignoreMouse);
-		}
 
-		if (!isGamePaused)
+		BeginDrawing();
+		ClearBackground(BLACK);
+
+		draw(ship, asteroids);
+
+		if (isGameLost)
 		{
-			draw(ship, asteroids);
+			lost::draw(loseButtons, gameFont);
 		}
-		else
+		if (isGamePaused)
 		{
 			pause::draw(pauseButtons, gameFont);
 		}
+
+		EndDrawing();
 	}
 
 	static void mainMenu(gameScene::Scene& currentScene, mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont, bool ignoreMouse)
@@ -235,7 +372,7 @@ namespace game
 		{
 			mainMenu::update(currentScene, currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, ignoreMouse);
 		}
-		
+
 		mainMenu::draw(currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
 	}
 
@@ -269,9 +406,13 @@ namespace game
 		button::Button pauseButtons[pause::maxButtons];
 		pause::initButtons(pauseButtons);
 
+		button::Button lostButtons[lost::maxButtons];
+		lost::initButtons(lostButtons);
+
 		bool isGamePaused = false;
 		bool ignoreMouse = false;
 		bool resetGameElements = false;
+		bool isGameLost = false;
 
 		float asteroidsCooldown = asteroid::asteroidSpawnCooldown;
 
@@ -285,10 +426,10 @@ namespace game
 
 				if (resetGameElements)
 				{
-					resetElements(ship,asteroids);
+					resetElements(ship, asteroids);
 					resetGameElements = false;
 				}
-				playing(ship, asteroids, pauseButtons, asteroidsCooldown, isGamePaused, currentScene, gameFont, ignoreMouse, delta);
+				playing(ship, asteroids, pauseButtons, lostButtons, asteroidsCooldown, isGamePaused, isGameLost, currentScene, gameFont, ignoreMouse, resetGameElements, delta);
 				break;
 			case gameScene::Scene::MainMenu:
 				mainMenu(currentScene, currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont, ignoreMouse);
