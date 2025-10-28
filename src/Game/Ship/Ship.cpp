@@ -34,7 +34,6 @@ namespace ship
 	void draw(Ship ship)
 	{
 		DrawPolyLines(ship.pos, shipSides, shipRadius, ship.rotation, WHITE);
-		DrawCircleV(ship.pos, shipRadius, ship.color);
 
 		bullet::draw(ship.bullets, ship::maxBullets);
 	}

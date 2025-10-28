@@ -52,7 +52,6 @@ namespace asteroid
 			if (asteroids[i].isOn)
 			{
 				DrawPolyLines(asteroids[i].pos, 5, asteroids[i].radius, asteroids[i].rotation, asteroids[i].color);
-				DrawCircleV(asteroids[i].hitBox.pos, asteroids[i].hitBox.radius, WHITE);
 			}
 		}
 	}

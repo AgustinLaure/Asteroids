@@ -44,7 +44,7 @@ namespace bullet
 		{
 			if (bullets[i].isOn)
 			{
-				DrawCircleV(bullets[i].hitBox.pos, bullets[i].hitBox.radius, bullets[i].color);
+				DrawCircleLinesV(bullets[i].hitBox.pos, bullets[i].hitBox.radius, bullets[i].color);
 			}
 		}
 	}
