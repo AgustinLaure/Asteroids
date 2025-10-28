@@ -126,7 +126,22 @@ namespace asteroid
 	{
 		if (screen::isOutScreen(asteroid.pos))
 		{
-			reset(asteroid);
+			if (asteroid.pos.x < 0)
+			{
+				asteroid.pos.x = screen::screenWidth;
+			}
+			else if (asteroid.pos.x > screen::screenWidth)
+			{
+				asteroid.pos.x = 0;
+			}
+			else if (asteroid.pos.y < 0)
+			{
+				asteroid.pos.y = screen::screenHeight;
+			}
+			else if (asteroid.pos.y > screen::screenHeight)
+			{
+				asteroid.pos.y = 0;
+			}
 		}
 	}
 
@@ -191,6 +206,10 @@ namespace asteroid
 
 				i++;
 			}
+		}
+		else if (piecesType == AsteroidTypes::Small)
+		{
+			reset(asteroids[i]);
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace asteroid
 		None
 	};
 
-	const int maxAsteroids = 100;
+	const int maxAsteroids = 150;
 	const int maxAsteroidTypes = 3;
 	const int asteroidSpawnPercentage = 50;
 	const float asteroidSpawnCooldown = 0.25f;
