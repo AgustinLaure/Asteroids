@@ -7,9 +7,16 @@
 #include "Game/Screen/Screen.h"
 #include "Game/Ship/Ship.h"
 #include "Game/Asteroid/Asteroid.h"
+#include "Game/MainMenu/MainMenu.h"
 
 namespace game
 {
+	enum class Scenes
+	{
+		Play,
+		MainMenu
+	};
+
 	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta);
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[]);
 	static void drawHp(int hp);
@@ -49,6 +56,18 @@ namespace game
 		EndDrawing();
 	}
 
+	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidsCooldown, float delta)
+	{
+		update(ship, asteroids, asteroidsCooldown, delta);
+		draw(ship, asteroids);
+	}
+
+	static void mainMenu(mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont)
+	{
+		mainMenu::update(currentSubScene);
+		mainMenu::draw(currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
+	}
+
 	void runGame()
 	{
 		float delta = 0.0f;
@@ -57,6 +76,18 @@ namespace game
 		ship::init(ship);
 		asteroid::Asteroid asteroids[asteroid::maxAsteroids];
 		asteroid::init(asteroids);
+		Scenes currentScene = Scenes::MainMenu;
+		mainMenu::SubScene currentSubScene = mainMenu::SubScene::titleScreen;
+		Font gameFont = LoadFont("res/Font/ARCADE_I.TTF");
+
+		button::Button titleScreenButtons[mainMenu::titleScreen::maxButtons];
+		mainMenu::titleScreen::initButtons(titleScreenButtons);
+
+		button::Button rulesButtons[mainMenu::rules::maxButtons];
+		mainMenu::rules::initButtons(rulesButtons);
+
+		button::Button creditsButtons[mainMenu::credits::maxButtons];
+		mainMenu::credits::initButtons(creditsButtons);
 
 		float asteroidsCooldown = asteroid::asteroidSpawnCooldown;
 
@@ -64,10 +95,21 @@ namespace game
 
 		while (!WindowShouldClose())
 		{
-			update(ship, asteroids, asteroidsCooldown, delta);
-			draw(ship, asteroids);
+			switch (currentScene)
+			{
+			case game::Scenes::Play:
+				playing(ship, asteroids, asteroidsCooldown, delta);
+				break;
+			case game::Scenes::MainMenu:
+				mainMenu(currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
+				break;
+			default:
+				break;
+			}
 		}
 
 		screen::closeWindow();
 	}
+
+	
 }

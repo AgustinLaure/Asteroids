@@ -28,6 +28,15 @@
     <Filter Include="src\Game\Asteroid">
       <UniqueIdentifier>{f927fb45-99aa-489e-9aac-f08feec28961}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Game\Button">
+      <UniqueIdentifier>{65fb1009-849b-4ebd-8c4f-d2e12847bbf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\MainMenu">
+      <UniqueIdentifier>{13270af6-ad9b-4023-baf3-f67593295627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\Text">
+      <UniqueIdentifier>{0ce0fc88-5999-434a-8100-49fa429b8102}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Screen\Screen.cpp">
@@ -54,6 +63,12 @@
     <ClCompile Include="src\Game\Asteroid\Asteroid.cpp">
       <Filter>src\Game\Asteroid</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Button\Button.cpp">
+      <Filter>src\Game\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MainMenu\MainMenu.cpp">
+      <Filter>src\Game\MainMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h">
@@ -76,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\Asteroid\Asteroid.h">
       <Filter>src\Game\Asteroid</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Button\Button.h">
+      <Filter>src\Game\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MainMenu\MainMenu.h">
+      <Filter>src\Game\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Text\Text.h">
+      <Filter>src\Game\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -181,7 +181,9 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
   <ItemGroup>
     <ClCompile Include="src\Game\Asteroid\Asteroid.cpp" />
     <ClCompile Include="src\Game\Bullet\Bullet.cpp" />
+    <ClCompile Include="src\Game\Button\Button.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
+    <ClCompile Include="src\Game\MainMenu\MainMenu.cpp" />
     <ClCompile Include="src\Game\Math\Form\Form.cpp" />
     <ClCompile Include="src\Game\Math\Vector\Vector.cpp" />
     <ClCompile Include="src\Game\Screen\Screen.cpp" />
@@ -191,11 +193,14 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
   <ItemGroup>
     <ClInclude Include="src\Game\Asteroid\Asteroid.h" />
     <ClInclude Include="src\Game\Bullet\Bullet.h" />
+    <ClInclude Include="src\Game\Button\Button.h" />
     <ClInclude Include="src\Game\Game.h" />
+    <ClInclude Include="src\Game\MainMenu\MainMenu.h" />
     <ClInclude Include="src\Game\Math\Form\Form.h" />
     <ClInclude Include="src\Game\Math\Vector\Vector.h" />
     <ClInclude Include="src\Game\Screen\Screen.h" />
     <ClInclude Include="src\Game\Ship\Ship.h" />
+    <ClInclude Include="src\Game\Text\Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
