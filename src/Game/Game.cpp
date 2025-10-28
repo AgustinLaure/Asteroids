@@ -165,6 +165,7 @@ namespace game
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[]);
 	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], float& asteroidsCooldown, bool& isGamePaused, gameScene::Scene& currentScene, Font gameFont, bool& sceneJustChanged, float delta);
 	static void mainMenu(gameScene::Scene& currentScene, mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont, bool ignoreMouse);
+	static void resetElements(ship::Ship& ship, asteroid::Asteroid asteroids[]);
 
 	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta)
 	{
@@ -238,6 +239,12 @@ namespace game
 		mainMenu::draw(currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
 	}
 
+	static void resetElements(ship::Ship& ship, asteroid::Asteroid asteroids[])
+	{
+		ship::init(ship);
+		asteroid::init(asteroids);
+	}
+
 	void runGame()
 	{
 		float delta = 0.0f;
@@ -264,6 +271,7 @@ namespace game
 
 		bool isGamePaused = false;
 		bool ignoreMouse = false;
+		bool resetGameElements = false;
 
 		float asteroidsCooldown = asteroid::asteroidSpawnCooldown;
 
@@ -274,10 +282,17 @@ namespace game
 			switch (currentScene)
 			{
 			case gameScene::Scene::Play:
+
+				if (resetGameElements)
+				{
+					resetElements(ship,asteroids);
+					resetGameElements = false;
+				}
 				playing(ship, asteroids, pauseButtons, asteroidsCooldown, isGamePaused, currentScene, gameFont, ignoreMouse, delta);
 				break;
 			case gameScene::Scene::MainMenu:
 				mainMenu(currentScene, currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont, ignoreMouse);
+				resetGameElements = true;
 				break;
 			default:
 				break;
