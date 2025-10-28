@@ -94,6 +94,7 @@ namespace vector
 		}
 
 		degree *= -1;
+		degree -= 90;
 
 		return degree;
 	}

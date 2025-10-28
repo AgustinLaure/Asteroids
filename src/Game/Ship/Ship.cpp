@@ -25,6 +25,7 @@ namespace ship
 		ship.onDie = LoadSound("res/sound/sfx/ship/destroy.ogg");
 		ship.onTakeDamage = LoadSound("res/sound/sfx/ship/receiveHit.ogg");
 		ship.onShoot = LoadSound("res/sound/sfx/ship/shoot.wav");
+		ship.sprite = LoadTexture("res/sprite/ship/spaceShip.png");
 	}
 
 	void update(Ship& ship, asteroid::Asteroid asteroids[], float& delta)
@@ -43,7 +44,7 @@ namespace ship
 	{
 		if (ship.isAlive)
 		{
-			DrawPolyLines(ship.pos, shipSides, shipRadius, ship.rotation, WHITE);
+			DrawTexturePro(ship.sprite, { 0,0,static_cast<float>(ship.sprite.width), static_cast<float>(ship.sprite.height) }, { ship.hitBox.pos.x, ship.hitBox.pos.y, ship.hitBox.radius * 2,ship.hitBox.radius * 2 }, {ship.hitBox.radius, ship.hitBox.radius}, ship.rotation, ship.color);
 
 			bullet::draw(ship.bullets, ship::maxBullets);
 		}

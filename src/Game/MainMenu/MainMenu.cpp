@@ -12,8 +12,115 @@ namespace mainMenu
 			Exit
 		};
 
+		const text::Text title =
+		{
+			{360,100},
+			"Asteroids",
+			75.0f,
+			2.0f,
+			WHITE
+		};
+
+		const float buttonsHeight = 500;
+		const float buttonsFontSize = 60;
+		const float disBetOptions = 50.0f;
+
+		const button::Button buttonsConst[maxButtons] =
+		{
+			//button1
+			{
+				//body
+				{
+					114.0f,					//width
+					buttonsFontSize,		//height
+					{175,buttonsHeight}		//pos
+				},
+			//text
+			{
+				{},							//pos
+				"Play",						//text
+				buttonsFontSize,			//fontSize
+				2,							//spacing
+				WHITE							//color
+			},
+			//color
+			WHITE,
+			//isPressed
+			false
+			},
+
+			//button2
+			{
+				//body
+				{
+
+					146.0f,
+					buttonsFontSize,
+					{175 + 114 + disBetOptions,buttonsHeight}
+				},
+			//text
+			{
+				{},
+				"Rules",
+				buttonsFontSize,
+				2,
+				WHITE
+			},
+			//color
+			WHITE,
+			//isPressed
+			false
+			},
+
+			//button3
+			{
+				//body
+				{
+					198,
+					buttonsFontSize,
+					{339 + 146 + disBetOptions,buttonsHeight}
+				},
+			//text
+			{
+				{},
+				"Credits",
+				buttonsFontSize,
+				2,
+				WHITE
+			},
+			//color
+			WHITE,
+			//isPressed
+			false
+			},
+
+			//button4
+			{
+				//body
+				{
+					102.0f,
+					buttonsFontSize,
+					{535 + 198 + disBetOptions,buttonsHeight}
+				},
+			//text
+			{
+				{},
+				"Exit",
+				buttonsFontSize,
+				2,
+				WHITE
+			},
+			//color
+			WHITE,
+			//isPressed
+			false
+			},
+
+		};
+
+
 		static void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[maxButtons], bool& ignoreMouse);
-		static void draw(button::Button titleScreenButtons[maxButtons], Font gameFont);
+		static void draw(button::Button titleScreenButtons[maxButtons]);
 
 		static void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[maxButtons], bool& ignoreMouse)
 		{
@@ -46,13 +153,13 @@ namespace mainMenu
 			}
 		}
 
-		static void draw(button::Button titleScreenButtons[maxButtons], Font gameFont)
+		static void draw(button::Button titleScreenButtons[maxButtons])
 		{
-			DrawTextEx(gameFont, title.text.c_str(), title.pos, title.fontSize, title.spacing, title.color);
+			DrawTextEx(GetFontDefault(), title.text.c_str(), title.pos, title.fontSize, title.spacing, title.color);
 
 			for (int i = 0; i < maxButtons; i++)
 			{
-				button::draw(titleScreenButtons[i], gameFont);
+				button::draw(titleScreenButtons[i]);
 			}
 		}
 
@@ -100,7 +207,7 @@ namespace mainMenu
 				"Back",							//text
 				optionsFontSize,				//fontSize
 				2,								//spacing
-				RED								//color
+				WHITE								//color
 			},
 			//color
 			WHITE,
@@ -155,7 +262,7 @@ namespace mainMenu
 		};
 
 		static void update(SubScene& currentSubscene, button::Button rulesButtons[], bool& ignoreMouse);
-		static void draw(button::Button rulesButtons[], Font gameFont);
+		static void draw(button::Button rulesButtons[]);
 
 		static void update(SubScene& currentSubscene, button::Button rulesButtons[], bool& ignoreMouse)
 		{
@@ -171,16 +278,16 @@ namespace mainMenu
 			}
 		}
 
-		static void draw(button::Button rulesButtons[], Font gameFont)
+		static void draw(button::Button rulesButtons[])
 		{
 			for (int i = 0; i < maxButtons; i++)
 			{
-				button::draw(rulesButtons[i], gameFont);
+				button::draw(rulesButtons[i]);
 			}
 
 			for (int i = 0; i < maxRulesLines; i++)
 			{
-				DrawTextEx(gameFont, rulesText[i].text.c_str(), rulesText[i].pos, rulesText[i].fontSize, rulesText[i].spacing, rulesText[i].color);
+				DrawTextEx(GetFontDefault(), rulesText[i].text.c_str(), rulesText[i].pos, rulesText[i].fontSize, rulesText[i].spacing, rulesText[i].color);
 			}
 		}
 
@@ -228,7 +335,7 @@ namespace mainMenu
 				"Back",								//text
 				optionsFontSize,					//fontSize
 				2,									//spacing
-				RED									//color
+				WHITE									//color
 			},
 			//color
 			WHITE,
@@ -284,7 +391,7 @@ namespace mainMenu
 		};
 
 		static void update(SubScene& currentSubscene, button::Button creditsButtons[], bool& ignoreMouse);
-		static void draw(button::Button creditsButtons[], Font gameFont);
+		static void draw(button::Button creditsButtons[]);
 
 		static void update(SubScene& currentSubscene, button::Button creditsButtons[], bool& ignoreMouse)
 		{
@@ -300,16 +407,16 @@ namespace mainMenu
 			}
 		}
 
-		static void draw(button::Button creditsButtons[], Font gameFont)
+		static void draw(button::Button creditsButtons[])
 		{
 			for (int i = 0; i < maxButtons; i++)
 			{
-				button::draw(creditsButtons[i], gameFont);
+				button::draw(creditsButtons[i]);
 			}
 
 			for (int i = 0; i < maxCreditsLines; i++)
 			{
-				DrawTextEx(gameFont, creditsLines[i].text.c_str(), creditsLines[i].pos, creditsLines[i].fontSize, creditsLines[i].spacing, creditsLines[i].color);
+				DrawTextEx(GetFontDefault(), creditsLines[i].text.c_str(), creditsLines[i].pos, creditsLines[i].fontSize, creditsLines[i].spacing, creditsLines[i].color);
 			}
 		}
 
@@ -352,7 +459,7 @@ namespace mainMenu
 		}
 	}
 
-	void draw(SubScene currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont)
+	void draw(SubScene currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[])
 	{
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -360,13 +467,13 @@ namespace mainMenu
 		switch (currentSubScene)
 		{
 		case SubScene::titleScreen:
-			titleScreen::draw(titleScreenButtons, gameFont);
+			titleScreen::draw(titleScreenButtons);
 			break;
 		case SubScene::Rules:
-			rules::draw(rulesButtons, gameFont);
+			rules::draw(rulesButtons);
 			break;
 		case SubScene::Credits:
-			credits::draw(creditsButtons, gameFont);
+			credits::draw(creditsButtons);
 			break;
 		case SubScene::Exit:
 			break;

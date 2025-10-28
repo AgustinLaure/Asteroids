@@ -23,6 +23,6 @@ namespace button
 
 	void init(Button& button, float width, float height, Vector2 pos, std::string text, float fontSize, float spacing, Color textColor, Color bckgColor);
 	void update(Button& button);
-	void draw(Button button, Font gameFont);
+	void draw(Button button);
 }
 

@@ -33,9 +33,8 @@ namespace button
 		}
 	}
 
-	void draw(Button button, Font gameFont)
+	void draw(Button button)
 	{
-		DrawRectangle(static_cast<int>(button.body.pos.x), static_cast<int>(button.body.pos.y), static_cast<int>(button.body.width), static_cast<int>(button.body.height), button.color);
-		DrawTextEx(gameFont, button.text.text.c_str(), button.text.pos, button.text.fontSize, button.text.spacing, button.text.color);
+		DrawTextEx(GetFontDefault(), button.text.text.c_str(), button.text.pos, button.text.fontSize, button.text.spacing, button.text.color);
 	}
 }

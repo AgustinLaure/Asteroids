@@ -43,6 +43,7 @@ namespace ship
 		Sound onDie;
 		Sound onTakeDamage;
 		Sound onShoot;
+		Texture2D sprite;
 	};
 
 	void init(Ship& ship);

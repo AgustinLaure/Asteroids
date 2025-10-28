@@ -4,10 +4,19 @@
 
 namespace asteroid
 {
+	Texture2D Asteroid::bigAsteroidSprite;
+	Texture2D Asteroid::medAsteroidSprite;
+	Texture2D Asteroid::smallAsteroidSprite;
+
 	void init(Asteroid asteroids[])
 	{
+		Asteroid::bigAsteroidSprite = LoadTexture("res/sprite/asteroid/bigAsteroid.png");
+		Asteroid::medAsteroidSprite = LoadTexture("res/sprite/asteroid/mediumAsteroid.png");
+		Asteroid::smallAsteroidSprite = LoadTexture("res/sprite/asteroid/smallAsteroid.png");
+
 		for (int i = 0; i < maxAsteroids; i++)
 		{
+
 			asteroids[i].type = AsteroidTypes::Big;
 			asteroids[i].pos = { 0,0 };
 			asteroids[i].dir = { 1,0 };
@@ -48,11 +57,29 @@ namespace asteroid
 
 	void draw(Asteroid asteroids[])
 	{
+		Texture2D sprite = {};
+
 		for (int i = 0; i < maxAsteroids; i++)
 		{
 			if (asteroids[i].isOn)
-			{
-				DrawPolyLines(asteroids[i].pos, 5, asteroids[i].radius, asteroids[i].rotation, asteroids[i].color);
+			{	
+				switch (asteroids[i].type)
+				{
+				case asteroid::AsteroidTypes::Big:
+					sprite = Asteroid::bigAsteroidSprite;
+					break;
+				case asteroid::AsteroidTypes::Medium:
+					sprite = Asteroid::medAsteroidSprite;
+					break;
+				case asteroid::AsteroidTypes::Small:
+					sprite = Asteroid::smallAsteroidSprite;
+					break;
+				
+				default:
+					break;
+				}
+
+				DrawTexturePro(sprite, { 0,0,static_cast<float>(sprite.width),static_cast<float>(sprite.height) }, { asteroids[i].pos.x, asteroids[i].pos.y, asteroids[i].radius*2, asteroids[i].radius*2 }, {asteroids[i].radius, asteroids[i].radius},asteroids[i].rotation, asteroids[i].color);
 			}
 		}
 	}

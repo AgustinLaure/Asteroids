@@ -6,6 +6,7 @@
 namespace bullet
 {
 	Sound Bullet::onLandHit;
+	Texture2D Bullet::sprite;
 
 	static void move(Bullet& bullet, float delta)
 	{
@@ -16,6 +17,8 @@ namespace bullet
 	void initBullets(Bullet bullets[], int bulletAmount)
 	{
 		Bullet::onLandHit = LoadSound("res/sound/sfx/bullet/bulletHit.wav");
+		Bullet::sprite = LoadTexture("res/sprite/bullet/bullet.png");
+
 		for (int i = 0; i < bulletAmount; i++)
 		{
 			bullets[i].pos = { 0,0 };
@@ -47,7 +50,7 @@ namespace bullet
 		{
 			if (bullets[i].isOn)
 			{
-				DrawCircleLinesV(bullets[i].hitBox.pos, bullets[i].hitBox.radius, bullets[i].color);
+				DrawTexturePro(Bullet::sprite, { 0,0,static_cast<float>(Bullet::sprite.width), static_cast<float>(Bullet::sprite.height) }, { bullets[i].hitBox.pos.x, bullets[i].hitBox.pos.y, bullets[i].hitBox.radius * 2, bullets[i].hitBox.radius * 2 }, {bullets[i].hitBox.radius, bullets[i].hitBox.radius}, 0, bullets[i].color);
 			}
 		}
 	}

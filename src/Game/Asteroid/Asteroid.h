@@ -82,6 +82,10 @@ namespace asteroid
 
 	struct Asteroid
 	{
+		static Texture2D bigAsteroidSprite;
+		static Texture2D medAsteroidSprite;
+		static Texture2D smallAsteroidSprite;
+
 		AsteroidTypes type = AsteroidTypes::Big;
 		Vector2 pos = { 0,0 };
 		Vector2 dir = { 1,0 };
