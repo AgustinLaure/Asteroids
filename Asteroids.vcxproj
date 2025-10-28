@@ -195,6 +195,7 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
     <ClInclude Include="src\Game\Bullet\Bullet.h" />
     <ClInclude Include="src\Game\Button\Button.h" />
     <ClInclude Include="src\Game\Game.h" />
+    <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\MainMenu\MainMenu.h" />
     <ClInclude Include="src\Game\Math\Form\Form.h" />
     <ClInclude Include="src\Game\Math\Vector\Vector.h" />

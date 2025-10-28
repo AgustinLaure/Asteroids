@@ -5,6 +5,7 @@
 #include "Game/Math/Vector/Vector.h"
 #include "Game/Button/Button.h"
 #include "Game/Text/Text.h"
+#include "Game/GameScene.h"
 
 namespace mainMenu
 {
@@ -14,10 +15,9 @@ namespace mainMenu
 		Rules,
 		Credits,
 		Exit
-
 	};
 
-	void update(SubScene& currentSubscene);
+	void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[]);
 	void draw(SubScene currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont);
 
 	namespace titleScreen
@@ -26,12 +26,16 @@ namespace mainMenu
 
 		const text::Text title =
 		{
-			{0,0},
+			{360,100},
 			"Asteroids",
-			15.0f,
+			75.0f,
 			2.0f,
 			WHITE
 		};
+
+		const float buttonsHeight = 500;
+		const float buttonsFontSize = 60;
+		const float disBetOptions = 50.0f;
 
 		const button::Button buttonsConst[maxButtons] =
 		{
@@ -39,17 +43,17 @@ namespace mainMenu
 			{
 				//body
 				{
-					15.0f,	//width
-					8.0f,	//height
-					{0,0}	//pos
+					114.0f,					//width
+					buttonsFontSize,		//height
+					{175,buttonsHeight}		//pos
 				},
 			//text
 			{
-				{},		//pos
-				"Play",	//text
-				10,		//fontSize
-				2,		//spacing
-				WHITE	//color
+				{},							//pos
+				"Play",						//text
+				buttonsFontSize,			//fontSize
+				2,							//spacing
+				RED							//color
 			},
 			//color
 			WHITE,
@@ -61,17 +65,18 @@ namespace mainMenu
 			{
 				//body
 				{
-					15.0f,	//width
-					8.0f,	//height
-					{0,0}	//pos
+					
+					146.0f,		
+					buttonsFontSize,
+					{175 +114+ disBetOptions,buttonsHeight}
 				},
 			//text
 			{
-				{},			//pos
-				"Rules",	//text
-				10,			//fontSize
-				2,			//spacing
-				WHITE		//color
+				{},			
+				"Rules",	
+				buttonsFontSize,
+				2,			
+				RED			
 			},
 			//color
 			WHITE,
@@ -83,17 +88,17 @@ namespace mainMenu
 			{
 				//body
 				{
-					15.0f,	//width
-					8.0f,	//height
-					{0,0}	//pos
+					198,		
+					buttonsFontSize,
+					{339+146+ disBetOptions,buttonsHeight}
 				},
 			//text
 			{
-				{},			//pos
-				"Credits",	//text
-				10,			//fontSize
-				2,			//spacing
-				WHITE		//color
+				{},				
+				"Credits",		
+				buttonsFontSize,
+				2,				
+				RED				
 			},
 			//color
 			WHITE,
@@ -105,17 +110,17 @@ namespace mainMenu
 			{
 				//body
 				{
-					15.0f,	//width
-					8.0f,	//height
-					{0,0}	//pos
+					102.0f,	
+					buttonsFontSize,
+					{535+198+ disBetOptions,buttonsHeight}
 				},
 			//text
 			{
-				{},			//pos
-				"Exit",		//text
-				10,			//fontSize
-				2,			//spacing
-				WHITE		//color
+				{},			
+				"Exit",		
+				buttonsFontSize,
+				2,			
+				RED		
 			},	
 			//color
 			WHITE,
@@ -125,37 +130,12 @@ namespace mainMenu
 
 		};
 
-		void initButtons(button::Button buttons[maxButtons]);
+		void initButtons(button::Button titleScreenButtons[maxButtons]);
 	}
 
 	namespace rules
 	{
 		const int maxButtons = 1;
-
-		const button::Button buttonsConst[maxButtons] =
-		{
-			//button1
-			{
-				//body
-				{
-					15.0f,	//width
-					8.0f,	//height
-					{0,0}	//pos
-				},
-			//text
-			{
-				{},		//pos
-				"Back",	//text
-				10,		//fontSize
-				2,		//spacing
-				WHITE	//color
-			},
-			//color
-			WHITE,
-			//isPressed
-			false
-			},
-		};
 
 		void initButtons(button::Button buttons[maxButtons]);
 	}
@@ -163,31 +143,6 @@ namespace mainMenu
 	namespace credits
 	{
 		const int maxButtons = 1;
-
-		const button::Button buttonsConst[maxButtons] =
-		{
-			//button1
-			{
-				//body
-				{
-					15.0f,	//width
-					8.0f,	//height
-					{0,0}	//pos
-				},
-			//text
-			{
-				{},		//pos
-				"Back",	//text
-				10,		//fontSize
-				2,		//spacing
-				WHITE	//color
-			},
-			//color
-			WHITE,
-			//isPressed
-			false
-			},
-		};
 
 		void initButtons(button::Button buttons[maxButtons]);
 	}

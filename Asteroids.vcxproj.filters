@@ -101,5 +101,8 @@
     <ClInclude Include="src\Game\Text\Text.h">
       <Filter>src\Game\Text</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\GameScene.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -20,6 +20,8 @@ namespace button
 
 	void update(Button& button)
 	{
+		button.isPressed = false;
+
 		if (IsMouseButtonDown(actionButton))
 		{
 			if (form::isPointCollidingRect(GetMousePosition(), button.body))

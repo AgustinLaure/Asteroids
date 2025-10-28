@@ -4,8 +4,8 @@
 
 namespace screen
 {
-	const int screenHeight = 1024;
-	const int screenWidth = 768;
+	const int screenWidth = 1024;
+	const int screenHeight = 768;
 	
 	void openWindow();
 	void closeWindow();

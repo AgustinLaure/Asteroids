@@ -8,15 +8,10 @@
 #include "Game/Ship/Ship.h"
 #include "Game/Asteroid/Asteroid.h"
 #include "Game/MainMenu/MainMenu.h"
+#include "Game/GameScene.h"
 
 namespace game
 {
-	enum class Scenes
-	{
-		Play,
-		MainMenu
-	};
-
 	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta);
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[]);
 	static void drawHp(int hp);
@@ -62,21 +57,21 @@ namespace game
 		draw(ship, asteroids);
 	}
 
-	static void mainMenu(mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont)
+	static void mainMenu(gameScene::Scene& currentScene, mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], Font gameFont)
 	{
-		mainMenu::update(currentSubScene);
+		mainMenu::update(currentScene, currentSubScene, titleScreenButtons, rulesButtons, creditsButtons);
 		mainMenu::draw(currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
 	}
 
 	void runGame()
 	{
 		float delta = 0.0f;
-
+		
 		ship::Ship ship;
 		ship::init(ship);
 		asteroid::Asteroid asteroids[asteroid::maxAsteroids];
 		asteroid::init(asteroids);
-		Scenes currentScene = Scenes::MainMenu;
+		gameScene::Scene currentScene = gameScene::Scene::MainMenu;
 		mainMenu::SubScene currentSubScene = mainMenu::SubScene::titleScreen;
 		Font gameFont = LoadFont("res/Font/ARCADE_I.TTF");
 
@@ -93,15 +88,15 @@ namespace game
 
 		screen::openWindow();
 
-		while (!WindowShouldClose())
+		while (!WindowShouldClose() && currentScene != gameScene::Scene::Exit)
 		{
 			switch (currentScene)
 			{
-			case game::Scenes::Play:
+			case gameScene::Scene::Play:
 				playing(ship, asteroids, asteroidsCooldown, delta);
 				break;
-			case game::Scenes::MainMenu:
-				mainMenu(currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
+			case gameScene::Scene::MainMenu:
+				mainMenu(currentScene, currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont);
 				break;
 			default:
 				break;
@@ -110,6 +105,4 @@ namespace game
 
 		screen::closeWindow();
 	}
-
-	
 }
