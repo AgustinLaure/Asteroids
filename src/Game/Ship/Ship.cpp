@@ -20,12 +20,12 @@ namespace ship
 		ship.shootCooldown = timeBetweenShots;
 	}
 
-	void update(Ship& ship, float& delta)
+	void update(Ship& ship, asteroid::Asteroid asteroids[], float& delta)
 	{
 		shoot(ship, delta);
 		updateLookDir(ship);
 		updateRotation(ship);
-		bullet::update(ship.bullets, ship::maxBullets, delta);
+		bullet::update(ship.bullets, ship::maxBullets, asteroids, delta);
 
 		outOfScreen(ship);
 		move(ship, delta);

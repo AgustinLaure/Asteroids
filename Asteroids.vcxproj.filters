@@ -25,6 +25,9 @@
     <Filter Include="src\Game\Bullet">
       <UniqueIdentifier>{5dad1de8-8a77-4816-bc2f-dce75de1716a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Game\Asteroid">
+      <UniqueIdentifier>{f927fb45-99aa-489e-9aac-f08feec28961}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Screen\Screen.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="src\Game\Bullet\Bullet.cpp">
       <Filter>src\Game\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Asteroid\Asteroid.cpp">
+      <Filter>src\Game\Asteroid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h">
@@ -67,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Bullet\Bullet.h">
       <Filter>src\Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Asteroid\Asteroid.h">
+      <Filter>src\Game\Asteroid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

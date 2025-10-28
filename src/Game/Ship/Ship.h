@@ -31,11 +31,11 @@ namespace ship
 		form::Circle collision;
 		Color color = WHITE;
 		bullet::Bullet bullets[maxBullets];
-		float shootCooldown;
+		float shootCooldown = 0.0f;
 	};
 
 	void init(Ship& ship);
-	void update(Ship& ship, float& delta);
+	void update(Ship& ship, asteroid::Asteroid asteroids[], float& delta);
 	void draw(Ship ship);
 	void move(Ship& ship, float delta);
 	void updateLookDir(Ship& ship);

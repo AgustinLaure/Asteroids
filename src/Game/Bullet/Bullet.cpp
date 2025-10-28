@@ -7,8 +7,8 @@ namespace bullet
 {
 	static void move(Bullet& bullet, float delta)
 	{
-		bullet.pos = vector::getVectorSum(bullet.body.pos, vector::getVectorMult(vector::getVectorMult(bullet.dir, bullet.speed), delta));
-		bullet.body.pos = bullet.pos;
+		bullet.pos = vector::getVectorSum(bullet.hitBox.pos, vector::getVectorMult(bullet.dir, bullet.speed * delta));
+		bullet.hitBox.pos = bullet.pos;
 	}
 
 	void initBullets(Bullet bullets[], int bulletAmount)
@@ -16,8 +16,8 @@ namespace bullet
 		for (int i = 0; i < bulletAmount; i++)
 		{
 			bullets[i].pos = { 0,0 };
-			bullets[i].body.pos = bullets[i].pos;
-			bullets[i].body.radius = bulletInitialRadius;
+			bullets[i].hitBox.pos = bullets[i].pos;
+			bullets[i].hitBox.radius = bulletInitialRadius;
 			bullets[i].dmg = bulletInitialDmg;
 			bullets[i].speed = bulletInitialSpeed;
 			bullets[i].dir = { 0,0 };
@@ -25,7 +25,7 @@ namespace bullet
 		}
 	}
 
-	void update(Bullet bullets[], int bulletAmount, float delta)
+	void update(Bullet bullets[], int bulletAmount, asteroid::Asteroid asteroids[], float delta)
 	{
 		for (int i = 0; i < bulletAmount; i++)
 		{
@@ -33,6 +33,7 @@ namespace bullet
 			{
 				move(bullets[i], delta);
 				outBounds(bullets[i]);
+				hitAsteroid(bullets[i], asteroids);
 			}
 		}
 	}
@@ -43,14 +44,14 @@ namespace bullet
 		{
 			if (bullets[i].isOn)
 			{
-				DrawCircleV(bullets[i].body.pos, bullets[i].body.radius, bullets[i].color);
+				DrawCircleV(bullets[i].hitBox.pos, bullets[i].hitBox.radius, bullets[i].color);
 			}
 		}
 	}
 
 	void shoot(Bullet& bullet, Vector2 pos, Vector2 dir)
 	{
-		bullet.body.pos = pos;
+		bullet.hitBox.pos = pos;
 		bullet.dir = dir;
 		bullet.isOn = true;
 	}
@@ -67,7 +68,24 @@ namespace bullet
 	{
 		bullet.isOn = false;
 		bullet.pos = { 0,0 };
-		bullet.body.pos = bullet.pos;
+		bullet.hitBox.pos = bullet.pos;
 		bullet.dir = { 1,0 };
+	}
+
+	void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[])
+	{
+		for (int i = 0; i < asteroid::maxAsteroids; i++)
+		{
+			if (asteroids[i].isOn)
+			{
+				if (form::isCircleCollidingCircle(bullet.hitBox, asteroids[i].hitBox)) 
+				{
+					asteroid::takeDamage(asteroids, i, bullet.dmg);
+					resetBullet(bullet);
+
+					return;
+				}
+			}
+		}
 	}
 }
