@@ -18,6 +18,7 @@ namespace ship
 		ship.collision.radius = shipRadius;
 		bullet::initBullets(ship.bullets, maxBullets);
 		ship.shootCooldown = timeBetweenShots;
+		ship.hp = initialHp;
 	}
 
 	void update(Ship& ship, asteroid::Asteroid asteroids[], float& delta)

@@ -18,6 +18,7 @@ namespace ship
 	const int maxBullets = 5;
 	const float distanceBetweenBullet = 30.0f;
 	const float timeBetweenShots = 0.25f;
+	const int initialHp = 3;
 
 	const MouseButton moveShipButton = MOUSE_RIGHT_BUTTON;
 	const MouseButton shootShipButton = MOUSE_LEFT_BUTTON;
@@ -32,6 +33,7 @@ namespace ship
 		Color color = WHITE;
 		bullet::Bullet bullets[maxBullets];
 		float shootCooldown = 0.0f;
+		int hp = 0;
 	};
 
 	void init(Ship& ship);

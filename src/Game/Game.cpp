@@ -8,9 +8,10 @@
 
 namespace game
 {
-	static void update(ship::Ship& ship, float& delta);
-	static void draw(ship::Ship ship);
-	
+	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta);
+	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[]);
+	static void drawHp(int hp);
+
 	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta)
 	{
 		delta = GetFrameTime();
@@ -21,13 +22,21 @@ namespace game
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[])
 	{
 		BeginDrawing();
+		ClearBackground(BLACK);
 
 		ship::draw(ship);
 		asteroid::draw(asteroids);
-
-		ClearBackground(BLACK);
+		drawHp(ship.hp);
 
 		EndDrawing();
+	}
+
+	static void drawHp(int hp)
+	{
+		for (int i = 0; i < hp; i++)
+		{
+			DrawText("<3", 0 + (100 * i), 0, 40, RED);
+		}
 	}
 
 	void runGame()
@@ -45,10 +54,10 @@ namespace game
 
 		while (!WindowShouldClose())
 		{
-			game::update(ship, asteroids, asteroidsCooldown, delta);
-			game::draw(ship, asteroids);
+			update(ship, asteroids, asteroidsCooldown, delta);
+			draw(ship, asteroids);
 		}
 
 		screen::closeWindow();
-	}	
+	}
 }
