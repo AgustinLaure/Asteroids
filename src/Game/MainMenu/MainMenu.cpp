@@ -12,7 +12,10 @@ namespace mainMenu
 			Exit
 		};
 
-		static void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[maxButtons])
+		static void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[maxButtons], bool& ignoreMouse);
+		static void draw(button::Button titleScreenButtons[maxButtons], Font gameFont);
+
+		static void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[maxButtons], bool& ignoreMouse)
 		{
 			for (int i = 0; i < maxButtons; i++)
 			{
@@ -23,19 +26,23 @@ namespace mainMenu
 			{
 				currentScene = gameScene::Scene::Play;
 				currentSubscene = SubScene::titleScreen;
+				ignoreMouse = true;
 			}
 			else if ((titleScreenButtons[static_cast<int>(Options::Rules)].isPressed))
 			{
 				currentSubscene = SubScene::Rules;
+				ignoreMouse = true;
 			}
 			else if ((titleScreenButtons[static_cast<int>(Options::Credits)].isPressed))
 			{
 				currentSubscene = SubScene::Credits;
+				ignoreMouse = true;
 			}
 			else if ((titleScreenButtons[static_cast<int>(Options::Exit)].isPressed))
 			{
 				currentSubscene = SubScene::titleScreen;
 				currentScene = gameScene::Scene::Exit;
+				ignoreMouse = true;
 			}
 		}
 
@@ -147,7 +154,10 @@ namespace mainMenu
 			},
 		};
 
-		static void update(SubScene& currentSubscene, button::Button rulesButtons[])
+		static void update(SubScene& currentSubscene, button::Button rulesButtons[], bool& ignoreMouse);
+		static void draw(button::Button rulesButtons[], Font gameFont);
+
+		static void update(SubScene& currentSubscene, button::Button rulesButtons[], bool& ignoreMouse)
 		{
 			for (int i = 0; i < maxButtons; i++)
 			{
@@ -157,6 +167,7 @@ namespace mainMenu
 			if (rulesButtons[static_cast<int>(Options::Back)].isPressed)
 			{
 				currentSubscene = SubScene::titleScreen;
+				ignoreMouse = true;
 			}
 		}
 
@@ -207,17 +218,17 @@ namespace mainMenu
 			{
 				//body
 				{
-					100.0f,	//width
-					optionsFontSize,	//height
-					{100,optionsHeightPos}	//pos
+					100.0f,							//width
+					optionsFontSize,				//height
+					{100,optionsHeightPos}			//pos
 				},
 			//text
 			{
-				{},		//pos
-				"Back",	//text
-				optionsFontSize,		//fontSize
-				2,		//spacing
-				RED	//color
+				{},									//pos
+				"Back",								//text
+				optionsFontSize,					//fontSize
+				2,									//spacing
+				RED									//color
 			},
 			//color
 			WHITE,
@@ -272,7 +283,10 @@ namespace mainMenu
 			},
 		};
 
-		static void update(SubScene& currentSubscene, button::Button creditsButtons[])
+		static void update(SubScene& currentSubscene, button::Button creditsButtons[], bool& ignoreMouse);
+		static void draw(button::Button creditsButtons[], Font gameFont);
+
+		static void update(SubScene& currentSubscene, button::Button creditsButtons[], bool& ignoreMouse)
 		{
 			for (int i = 0; i < maxButtons; i++)
 			{
@@ -282,6 +296,7 @@ namespace mainMenu
 			if (creditsButtons[static_cast<int>(Options::Back)].isPressed)
 			{
 				currentSubscene = SubScene::titleScreen;
+				ignoreMouse = true;
 			}
 		}
 
@@ -316,19 +331,19 @@ namespace mainMenu
 		}
 	}
 
-	void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[])
+	void update(gameScene::Scene& currentScene, SubScene& currentSubscene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], bool& ignoreMouse)
 	{
 		switch (currentSubscene)
 		{
 		case SubScene::titleScreen:
-			titleScreen::update(currentScene, currentSubscene, titleScreenButtons);
+			titleScreen::update(currentScene, currentSubscene, titleScreenButtons, ignoreMouse);
 			break;
 
 		case SubScene::Rules:
-			rules::update(currentSubscene, rulesButtons);
+			rules::update(currentSubscene, rulesButtons, ignoreMouse);
 			break;
 		case SubScene::Credits:
-			credits::update(currentSubscene, creditsButtons);
+			credits::update(currentSubscene, creditsButtons, ignoreMouse);
 			break;
 		case SubScene::Exit:
 			break;
