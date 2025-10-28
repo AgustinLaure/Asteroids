@@ -50,11 +50,18 @@ namespace asteroid
 		1
 	};
 
-	const float asteroidsShatterPoints[maxAsteroidTypes] =
+	const int asteroidsShatterPoints[maxAsteroidTypes] =
 	{
-		10.0f,
-		12.0f,
-		15.0f
+		10,
+		12,
+		15
+	};
+
+	const int asteroidsDamage[maxAsteroidTypes] =
+	{
+		2,
+		1,
+		1
 	};
 
 	const AsteroidTypes asteroidPiecesType[maxAsteroidTypes] =
@@ -85,6 +92,7 @@ namespace asteroid
 		float rotation = 0.0f;
 		float speed = 0.0f;
 		int hp = 0;
+		int dmg = 0;
 	};
 
 	void init(Asteroid asteroids[]);

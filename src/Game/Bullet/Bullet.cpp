@@ -25,7 +25,7 @@ namespace bullet
 		}
 	}
 
-	void update(Bullet bullets[], int bulletAmount, asteroid::Asteroid asteroids[], float delta)
+	void update(Bullet bullets[], int bulletAmount, asteroid::Asteroid asteroids[], int& shipPoints, float delta)
 	{
 		for (int i = 0; i < bulletAmount; i++)
 		{
@@ -33,7 +33,7 @@ namespace bullet
 			{
 				move(bullets[i], delta);
 				outBounds(bullets[i]);
-				hitAsteroid(bullets[i], asteroids);
+				hitAsteroid(bullets[i], asteroids, shipPoints);
 			}
 		}
 	}
@@ -72,7 +72,7 @@ namespace bullet
 		bullet.dir = { 1,0 };
 	}
 
-	void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[])
+	void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[], int& shipPoints)
 	{
 		for (int i = 0; i < asteroid::maxAsteroids; i++)
 		{
@@ -82,6 +82,12 @@ namespace bullet
 				{
 					asteroid::takeDamage(asteroids, i, bullet.dmg);
 					resetBullet(bullet);
+
+					shipPoints += pointsPerHit;
+					if (asteroids[i].hp<= 0)
+					{
+						shipPoints += asteroid::asteroidsShatterPoints[static_cast<int>(asteroids[i].type)];
+					}
 
 					return;
 				}

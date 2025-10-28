@@ -14,11 +14,14 @@ namespace ship
 		ship.lookDir = shipInitialDir;
 		ship.velocity = shipInitialVelocity;
 		ship.rotation = shipInitialRotation;
-		ship.collision.pos = ship.pos;
-		ship.collision.radius = shipRadius;
+		ship.hitBox.pos = ship.pos;
+		ship.hitBox.radius = shipRadius;
 		bullet::initBullets(ship.bullets, maxBullets);
 		ship.shootCooldown = timeBetweenShots;
+		ship.takeDamageCooldown = timeBetweenTakingDamage;
 		ship.hp = initialHp;
+		ship.isAlive = true;
+		ship.points = initialPoints;
 	}
 
 	void update(Ship& ship, asteroid::Asteroid asteroids[], float& delta)
@@ -26,7 +29,8 @@ namespace ship
 		shoot(ship, delta);
 		updateLookDir(ship);
 		updateRotation(ship);
-		bullet::update(ship.bullets, ship::maxBullets, asteroids, delta);
+		bullet::update(ship.bullets, ship::maxBullets, asteroids, ship.points, delta);
+		hitAsteroid(ship, asteroids, delta);
 
 		outOfScreen(ship);
 		move(ship, delta);
@@ -47,6 +51,7 @@ namespace ship
 		}
 
 		ship.pos = vector::getVectorSum(ship.pos, ship.velocity);
+		ship.hitBox.pos = ship.pos;
 	}
 
 	void updateLookDir(Ship& ship)
@@ -86,7 +91,7 @@ namespace ship
 	void shoot(Ship& ship, float delta)
 	{
 		Vector2 bulletStartPos = vector::getVectorSum(ship.pos, vector::getVectorMult(ship.lookDir, distanceBetweenBullet));
-		
+
 		ship.shootCooldown -= 1 * delta;
 
 		if (IsMouseButtonPressed(shootShipButton) && ship.shootCooldown <= 0)
@@ -99,6 +104,35 @@ namespace ship
 					ship.shootCooldown = timeBetweenShots;
 
 					return;
+				}
+			}
+		}
+	}
+
+	void hitAsteroid(Ship& ship, asteroid::Asteroid asteroids[], float delta)
+	{
+		ship.takeDamageCooldown -= 1 * delta;
+
+		if (ship.takeDamageCooldown <= 0)
+		{
+			for (int i = 0; i < asteroid::maxAsteroids; i++)
+			{
+				if (asteroids[i].isOn)
+				{
+					if (form::isCircleCollidingCircle(asteroids[i].hitBox, ship.hitBox))
+					{
+						ship.hp -= asteroids[i].dmg;
+
+						if (ship.hp <= 0)
+						{
+							ship.hp = 0;
+							ship.isAlive = false;
+						}
+
+						ship.takeDamageCooldown = timeBetweenTakingDamage;
+
+						return;
+					}
 				}
 			}
 		}

@@ -149,7 +149,8 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
       <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y</Command>
+      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y
+xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -173,7 +174,8 @@ xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y</Command>
+      <Command>copy "$(ProjectDir)\include\raylib-5.5_win64_msvc16\*.dll" "$(OutDir)"  /y
+xcopy "$(SolutionDir)\res" "$(OutDir)\res" /y /i /e /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ namespace asteroid
 			asteroids[i].hp = asteroidsHp[static_cast<int>(asteroids[i].type)];
 			asteroids[i].hitBox.pos = asteroids[i].pos;
 			asteroids[i].hitBox.radius = asteroids[i].radius;
+			asteroids[i].dmg = asteroidsDamage[static_cast<int>(asteroids[i].type)];
 		}
 	}
 
@@ -156,8 +157,6 @@ namespace asteroid
 
 	void shatter(Asteroid asteroids[], int toShatter)
 	{
-		//float points = asteroidsShatterPoints[static_cast<int>(asteroids[toShatter].type)];
-
 		AsteroidTypes piecesType = asteroidPiecesType[static_cast<int>(asteroids[toShatter].type)];
 
 		asteroids[toShatter].isOn = false;
@@ -185,6 +184,7 @@ namespace asteroid
 					asteroids[i].radius = asteroidsRadius[static_cast<int>(piecesType)];
 					asteroids[i].hitBox.radius = asteroids[i].radius;
 					asteroids[i].speed = asteroidsSpeed[static_cast<int>(piecesType)];
+					asteroids[i].dmg = asteroidsDamage[static_cast<int>(piecesType)];
 					asteroids[i].isOn = true;
 					shatterCount++;
 				}

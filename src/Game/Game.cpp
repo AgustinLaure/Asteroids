@@ -1,5 +1,7 @@
 #include "Game/Game.h"
 
+#include <string>
+
 #include "raylib.h"
 
 #include "Game/Screen/Screen.h"
@@ -19,16 +21,11 @@ namespace game
 		asteroid::update(asteroids, asteroidSpawnCooldown, delta);
 	}
 
-	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[])
+	static void drawPoints(int points)
 	{
-		BeginDrawing();
-		ClearBackground(BLACK);
+		std::string text = "Points: " + std::to_string(points);
 
-		ship::draw(ship);
-		asteroid::draw(asteroids);
-		drawHp(ship.hp);
-
-		EndDrawing();
+		DrawText(text.c_str(), 0, screen::screenHeight-40, 40, WHITE);
 	}
 
 	static void drawHp(int hp)
@@ -37,6 +34,19 @@ namespace game
 		{
 			DrawText("<3", 0 + (100 * i), 0, 40, RED);
 		}
+	}
+
+	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[])
+	{
+		BeginDrawing();
+		ClearBackground(BLACK);
+
+		ship::draw(ship);
+		asteroid::draw(asteroids);
+		drawHp(ship.hp);
+		drawPoints(ship.points);
+
+		EndDrawing();
 	}
 
 	void runGame()

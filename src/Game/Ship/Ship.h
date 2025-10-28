@@ -5,6 +5,7 @@
 #include "Game/Math/Vector/Vector.h"
 #include "Game/Math/Form/Form.h"
 #include "Game/Bullet/Bullet.h"
+#include "Game/Asteroid/Asteroid.h"
 
 namespace ship
 {
@@ -18,7 +19,9 @@ namespace ship
 	const int maxBullets = 5;
 	const float distanceBetweenBullet = 30.0f;
 	const float timeBetweenShots = 0.25f;
+	const float timeBetweenTakingDamage = 0.25f;
 	const int initialHp = 3;
+	const int initialPoints = 0;
 
 	const MouseButton moveShipButton = MOUSE_RIGHT_BUTTON;
 	const MouseButton shootShipButton = MOUSE_LEFT_BUTTON;
@@ -29,11 +32,14 @@ namespace ship
 		Vector2 lookDir = {};
 		Vector2 velocity = {};
 		float rotation = 0.0f;
-		form::Circle collision;
+		form::Circle hitBox;
 		Color color = WHITE;
 		bullet::Bullet bullets[maxBullets];
 		float shootCooldown = 0.0f;
+		float takeDamageCooldown = 0.0f;
 		int hp = 0;
+		bool isAlive = true;
+		int points = 0;
 	};
 
 	void init(Ship& ship);
@@ -44,5 +50,6 @@ namespace ship
 	void updateRotation(Ship& ship);
 	void outOfScreen(Ship& ship);
 	void shoot(Ship& ship, float delta);
+	void hitAsteroid(Ship& ship, asteroid::Asteroid asteroids[], float delta);
 }
 
