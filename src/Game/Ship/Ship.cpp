@@ -22,6 +22,9 @@ namespace ship
 		ship.hp = initialHp;
 		ship.isAlive = true;
 		ship.points = initialPoints;
+		ship.onDie = LoadSound("res/sound/sfx/ship/destroy.ogg");
+		ship.onTakeDamage = LoadSound("res/sound/sfx/ship/receiveHit.ogg");
+		ship.onShoot = LoadSound("res/sound/sfx/ship/shoot.wav");
 	}
 
 	void update(Ship& ship, asteroid::Asteroid asteroids[], float& delta)
@@ -38,9 +41,12 @@ namespace ship
 
 	void draw(Ship ship)
 	{
-		DrawPolyLines(ship.pos, shipSides, shipRadius, ship.rotation, WHITE);
+		if (ship.isAlive)
+		{
+			DrawPolyLines(ship.pos, shipSides, shipRadius, ship.rotation, WHITE);
 
-		bullet::draw(ship.bullets, ship::maxBullets);
+			bullet::draw(ship.bullets, ship::maxBullets);
+		}
 	}
 
 	void move(Ship& ship, float delta)
@@ -103,6 +109,8 @@ namespace ship
 					bullet::shoot(ship.bullets[i], bulletStartPos, ship.lookDir);
 					ship.shootCooldown = timeBetweenShots;
 
+					PlaySound(ship.onShoot);
+
 					return;
 				}
 			}
@@ -121,12 +129,18 @@ namespace ship
 				{
 					if (form::isCircleCollidingCircle(asteroids[i].hitBox, ship.hitBox))
 					{
+
 						ship.hp -= asteroids[i].dmg;
 
 						if (ship.hp <= 0)
 						{
 							ship.hp = 0;
 							ship.isAlive = false;
+							PlaySound(ship.onDie);
+						}
+						else
+						{
+							PlaySound(ship.onTakeDamage);
 						}
 
 						ship.takeDamageCooldown = timeBetweenTakingDamage;

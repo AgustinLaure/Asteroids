@@ -120,13 +120,7 @@ namespace game
 
 			for (int i = 0; i < maxButtons; i++)
 			{
-				if (IsMouseButtonPressed(selectButton))
-				{
-					if (form::isPointCollidingRect(GetMousePosition(), pauseButtons[i].body))
-					{
-						pauseButtons[i].isPressed = true;
-					}
-				}
+				button::update(pauseButtons[i]);
 
 				if (pauseButtons[static_cast<int>(Option::Back)].isPressed)
 				{
@@ -226,7 +220,7 @@ namespace game
 		};
 
 		static void initButtons(button::Button loseButtons[]);
-		static void update(button::Button loseButtons[], gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements);
+		static void update(button::Button loseButtons[], gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements, Sound onSelect);
 		static void draw(button::Button loseButtons[], Font gameFont);
 
 		static void initButtons(button::Button pauseButtons[])
@@ -255,13 +249,7 @@ namespace game
 
 			for (int i = 0; i < maxButtons; i++)
 			{
-				if (IsMouseButtonPressed(selectButton))
-				{
-					if (form::isPointCollidingRect(GetMousePosition(), loseButtons[i].body))
-					{
-						loseButtons[i].isPressed = true;
-					}
-				}
+				button::update(loseButtons[i]);
 
 				if (loseButtons[static_cast<int>(Option::Back)].isPressed)
 				{
@@ -384,6 +372,8 @@ namespace game
 
 	void runGame()
 	{
+		InitAudioDevice();
+
 		float delta = 0.0f;
 
 		ship::Ship ship;
@@ -392,7 +382,7 @@ namespace game
 		asteroid::init(asteroids);
 		gameScene::Scene currentScene = gameScene::Scene::MainMenu;
 		mainMenu::SubScene currentSubScene = mainMenu::SubScene::titleScreen;
-		Font gameFont = LoadFont("res/Font/ARCADE_I.TTF");
+		Font gameFont = LoadFont("res/font/ARCADE_I.TTF");
 
 		button::Button titleScreenButtons[mainMenu::titleScreen::maxButtons];
 		mainMenu::titleScreen::initButtons(titleScreenButtons);
@@ -409,6 +399,12 @@ namespace game
 		button::Button lostButtons[lost::maxButtons];
 		lost::initButtons(lostButtons);
 
+
+		Music menuMusic = LoadMusicStream("res/sound/music/menu/menuMusic.ogg");
+		Music gameMusic = LoadMusicStream("res/sound/music/game/gameMusic.ogg");
+		SetMusicVolume(menuMusic, 0.5f);
+		SetMusicVolume(gameMusic, 0.5f);
+
 		bool isGamePaused = false;
 		bool ignoreMouse = false;
 		bool resetGameElements = false;
@@ -417,6 +413,9 @@ namespace game
 		float asteroidsCooldown = asteroid::asteroidSpawnCooldown;
 
 		screen::openWindow();
+
+
+		PlayMusicStream(menuMusic);
 
 		while (!WindowShouldClose() && currentScene != gameScene::Scene::Exit)
 		{
@@ -429,9 +428,23 @@ namespace game
 					resetElements(ship, asteroids);
 					resetGameElements = false;
 				}
+				if (!IsMusicStreamPlaying(gameMusic))
+				{
+					StopMusicStream(menuMusic);
+					PlayMusicStream(gameMusic);
+				}
+
+				UpdateMusicStream(gameMusic);
 				playing(ship, asteroids, pauseButtons, lostButtons, asteroidsCooldown, isGamePaused, isGameLost, currentScene, gameFont, ignoreMouse, resetGameElements, delta);
 				break;
 			case gameScene::Scene::MainMenu:
+				if (!IsMusicStreamPlaying(menuMusic))
+				{
+					StopMusicStream(gameMusic);
+					PlayMusicStream(menuMusic);
+				}
+
+				UpdateMusicStream(menuMusic);
 				mainMenu(currentScene, currentSubScene, titleScreenButtons, rulesButtons, creditsButtons, gameFont, ignoreMouse);
 				resetGameElements = true;
 				break;
@@ -445,6 +458,18 @@ namespace game
 			}
 		}
 
+		UnloadMusicStream(gameMusic);
+		UnloadMusicStream(menuMusic);
+
+		UnloadSound(button::Button::onSelect);
+		UnloadSound(bullet::Bullet::onLandHit);
+		UnloadSound(ship.onDie);
+		UnloadSound(ship.onTakeDamage);
+		UnloadSound(ship.onShoot);
+
+		UnloadFont(gameFont);
+
+		CloseAudioDevice();
 		screen::closeWindow();
 	}
 }

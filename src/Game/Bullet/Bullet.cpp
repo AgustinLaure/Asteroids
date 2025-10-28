@@ -5,6 +5,8 @@
 
 namespace bullet
 {
+	Sound Bullet::onLandHit;
+
 	static void move(Bullet& bullet, float delta)
 	{
 		bullet.pos = vector::getVectorSum(bullet.hitBox.pos, vector::getVectorMult(bullet.dir, bullet.speed * delta));
@@ -13,6 +15,7 @@ namespace bullet
 
 	void initBullets(Bullet bullets[], int bulletAmount)
 	{
+		Bullet::onLandHit = LoadSound("res/sound/sfx/bullet/bulletHit.wav");
 		for (int i = 0; i < bulletAmount; i++)
 		{
 			bullets[i].pos = { 0,0 };
@@ -88,6 +91,8 @@ namespace bullet
 					{
 						shipPoints += asteroid::asteroidsShatterPoints[static_cast<int>(asteroids[i].type)];
 					}
+
+					PlaySound(bullet.onLandHit);
 
 					return;
 				}

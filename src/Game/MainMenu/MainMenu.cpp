@@ -242,7 +242,7 @@ namespace mainMenu
 		const float CreditsFontSize = 30.0f;
 		const float CreditsSpacing = 2.0f;
 		const Color CreditsColor = WHITE;
-		const float CreditsX = 300;
+		const float CreditsX = 150;
 
 		const text::Text creditsLines[maxCreditsLines] =
 		{
@@ -255,21 +255,21 @@ namespace mainMenu
 			},
 			{
 				{CreditsX,250},
-				"",
+				"-mianostudiogames - itchio - Asteroids Assets Pack",
 				CreditsFontSize,
 				CreditsSpacing,
 				CreditsColor
 			},
 			{
 				{CreditsX,400},
-				"",
+				"-kenney - Interface Sounds",
 				CreditsFontSize,
 				CreditsSpacing,
 				CreditsColor
 			},
 			{
 				{CreditsX, 550},
-				"",
+				"-Tallbeard studios -itchio- Three red hearts",
 				CreditsFontSize,
 				CreditsSpacing,
 				CreditsColor

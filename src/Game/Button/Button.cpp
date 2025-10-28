@@ -1,11 +1,12 @@
 #include "Game/Button/Button.h"
 
-#include "raylib.h"
-
 namespace button
 {
+	Sound Button::onSelect;
+
 	void init(Button& button,float width, float height, Vector2 pos, std::string text, float fontSize, float spacing, Color textColor, Color bckgColor)
 	{
+		Button::onSelect = LoadSound("res/sound/sfx/ui/selectSound.ogg");
 		button.body.width = width;
 		button.body.height = height;
 		button.body.pos = pos;
@@ -27,6 +28,7 @@ namespace button
 			if (form::isPointCollidingRect(GetMousePosition(), button.body))
 			{
 				button.isPressed = true;
+				PlaySound(Button::onSelect);
 			}
 		}
 	}

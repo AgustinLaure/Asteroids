@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "raylib.h"
+
 #include "Game/Math/Form/Form.h"
 #include "Game/Math/Vector/Vector.h"
 #include "Game/Text/Text.h"
@@ -12,6 +14,7 @@ namespace button
 
 	struct Button
 	{
+		static Sound onSelect;
 		form::Rectangle body;
 		text::Text text;
 		Color color = WHITE;

@@ -19,7 +19,7 @@ namespace ship
 	const int maxBullets = 5;
 	const float distanceBetweenBullet = 30.0f;
 	const float timeBetweenShots = 0.25f;
-	const float timeBetweenTakingDamage = 0.25f;
+	const float timeBetweenTakingDamage = 1.0f;
 	const int initialHp = 3;
 	const int initialPoints = 0;
 
@@ -40,6 +40,9 @@ namespace ship
 		int hp = 0;
 		bool isAlive = true;
 		int points = 0;
+		Sound onDie;
+		Sound onTakeDamage;
+		Sound onShoot;
 	};
 
 	void init(Ship& ship);

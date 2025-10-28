@@ -12,6 +12,7 @@ namespace bullet
 
 	struct Bullet
 	{
+		static Sound onLandHit;
 		Vector2 pos = {};
 		form::Circle hitBox;
 		int dmg = 0;
