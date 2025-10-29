@@ -5,7 +5,7 @@
 This is a game inspired by the classic Asteroids, it was made with Raylib by Agustín Laure (familialaure@gmail.com - https://agustinlaure.itch.io/)
 
 
-**How to play**
+**How to play**␣␣
 
 
 -Destroy as many asteroids as you can without getting hit
@@ -14,7 +14,7 @@ This is a game inspired by the classic Asteroids, it was made with Raylib by Agu
 -To play, run Asteroids.exe.
 
 
-**Controls**
+**Controls**␣␣
 
 
 -Left-click to shoot
@@ -22,13 +22,13 @@ This is a game inspired by the classic Asteroids, it was made with Raylib by Agu
 -Press P to pause
 
 
-**Version**
+**Version**␣␣
 
 
 This version includes the base game, with all its core features.
 
 
-**Credits**
+**Credits**␣␣
 
 
 The game was made using assets from:
