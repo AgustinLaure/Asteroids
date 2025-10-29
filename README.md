@@ -18,7 +18,9 @@ This is a game inspired by the classic Asteroids, made with Raylib by Agustín L
 #
 #
 -*Left-click* to shoot
+
 -*Right-click* to move
+
 -Press *P* to pause
 #
 #
