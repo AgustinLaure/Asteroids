@@ -32,7 +32,7 @@ This version includes the base game, with all its core features.
 #
 #
 The game uses assets from:
-
+#
 [Three Red Hearts](https://tallbeard.itch.io/three-red-hearts-prepare-to-dev)
 
 [Kenney - Interface Sound](https://kenney.nl/assets/interface-sounds)​​
