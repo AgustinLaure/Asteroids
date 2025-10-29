@@ -4,9 +4,200 @@
 
 namespace asteroid
 {
+	const int asteroidSpawnPercentage = 50;
+	const float piecesShatterDistance = 10.0f;
+	const int maxShatter = 2;
+
+	const float asteroidsRadius[maxAsteroidTypes] =
+	{
+		25.0f,
+		15.0f,
+		5.0f
+	};
+
+	const float asteroidsSpeed[maxAsteroidTypes] =
+	{
+		40.0f,
+		80.0f,
+		120.0f
+	};
+
+	const float asteroidsRotationSpeed[maxAsteroidTypes] =
+	{
+		50.0f,
+		100.0f,
+		150.0f
+	};
+
+	const int asteroidsHp[maxAsteroidTypes] =
+	{
+		1,
+		1,
+		1
+	};
+
+	const AsteroidTypes asteroidPiecesType[maxAsteroidTypes] =
+	{
+		AsteroidTypes::Medium,
+		AsteroidTypes::Small,
+		AsteroidTypes::None
+	};
+
+	const int maxAsteroidSpawnPoints = 4;
+	enum class AsteroidSpawnPoint
+	{
+		Top,
+		Left,
+		Right,
+		Bottom
+	};
+
 	Texture2D Asteroid::bigAsteroidSprite;
 	Texture2D Asteroid::medAsteroidSprite;
 	Texture2D Asteroid::smallAsteroidSprite;
+
+	static void move(Asteroid& asteroid, float delta);
+	static void spawnAsteroid(Asteroid asteroids[]);
+	static void setRandomSpawn(Asteroid& asteroid);
+	static void outBounds(Asteroid& asteroid);
+	static void rotate(Asteroid& asteroid, float delta);
+	static void shatter(Asteroid asteroids[], int toShatter);
+
+	static void move(Asteroid& asteroid, float delta)
+	{
+		asteroid.pos = vector::getVectorSum(asteroid.pos, vector::getVectorMult(asteroid.dir, asteroid.speed * delta));
+		asteroid.hitBox.pos = asteroid.pos;
+	}
+
+	static void spawnAsteroid(Asteroid asteroids[])
+	{
+		for (int i = 0; i < maxAsteroids; i++)
+		{
+			if (!asteroids[i].isOn)
+			{
+				setRandomSpawn(asteroids[i]);
+				asteroids[i].isOn = true;
+
+				return;
+			}
+		}
+	}
+
+	static void setRandomSpawn(Asteroid& asteroid)
+	{
+		AsteroidSpawnPoint spawnPoint = static_cast<AsteroidSpawnPoint>(GetRandomValue(0, maxAsteroidSpawnPoints));
+		Vector2 pos = {};
+		Vector2 dir = {};
+		float randomAngle = static_cast<float>(GetRandomValue(0, 180));
+
+		switch (spawnPoint)
+		{
+		case asteroid::AsteroidSpawnPoint::Top:
+			pos.x = static_cast<float>(GetRandomValue(0, screen::screenWidth));
+			pos.y = 0;
+			break;
+
+		case asteroid::AsteroidSpawnPoint::Left:
+			pos.x = 0;
+			pos.y = static_cast<float>(GetRandomValue(0, screen::screenHeight));
+			randomAngle += randomAngle;
+			if (randomAngle >= 360)
+			{
+				randomAngle -= 360;
+			}
+			break;
+
+		case asteroid::AsteroidSpawnPoint::Right:
+			pos.x = screen::screenWidth;
+			pos.y = static_cast<float>(GetRandomValue(0, screen::screenHeight));
+			randomAngle += 90;
+			break;
+
+		case asteroid::AsteroidSpawnPoint::Bottom:
+			pos.x = static_cast<float>(GetRandomValue(0, screen::screenWidth));
+			pos.y = screen::screenHeight;
+			randomAngle += 180;
+			break;
+
+		default:
+			break;
+		}
+
+		asteroid.pos = pos;
+		dir = vector::getDir(randomAngle);
+		asteroid.dir = dir;
+	}
+
+	static void outBounds(Asteroid& asteroid)
+	{
+		if (screen::isOutScreen(asteroid.pos))
+		{
+			if (asteroid.pos.x < 0)
+			{
+				asteroid.pos.x = screen::screenWidth;
+			}
+			else if (asteroid.pos.x > screen::screenWidth)
+			{
+				asteroid.pos.x = 0;
+			}
+			else if (asteroid.pos.y < 0)
+			{
+				asteroid.pos.y = screen::screenHeight;
+			}
+			else if (asteroid.pos.y > screen::screenHeight)
+			{
+				asteroid.pos.y = 0;
+			}
+		}
+	}
+
+	static void rotate(Asteroid& asteroid, float delta)
+	{
+		asteroid.rotation += asteroidsRotationSpeed[static_cast<int>(asteroid.type)] * delta;
+	}
+
+	static void shatter(Asteroid asteroids[], int toShatter)
+	{
+		AsteroidTypes piecesType = asteroidPiecesType[static_cast<int>(asteroids[toShatter].type)];
+
+		asteroids[toShatter].isOn = false;
+
+		Vector2 randomDir = vector::getDir(static_cast<float>(GetRandomValue(0, 360)));
+		int shatterCount = 0;
+
+		int i = 0;
+		if (piecesType <= AsteroidTypes::Small)
+		{
+			while (shatterCount < maxShatter && i < maxAsteroids)
+			{
+				if (!asteroids[i].isOn)
+				{
+					asteroids[i].type = piecesType;
+
+					if (shatterCount % 2 != 0)
+					{
+						randomDir = vector::getVectorMult(randomDir, -1);
+					}
+
+					asteroids[i].dir = randomDir;
+
+					asteroids[i].pos = vector::getVectorSum(asteroids[toShatter].pos, vector::getVectorMult(asteroids[toShatter].dir, piecesShatterDistance));
+					asteroids[i].radius = asteroidsRadius[static_cast<int>(piecesType)];
+					asteroids[i].hitBox.radius = asteroids[i].radius;
+					asteroids[i].speed = asteroidsSpeed[static_cast<int>(piecesType)];
+					asteroids[i].dmg = asteroidsDamage[static_cast<int>(piecesType)];
+					asteroids[i].isOn = true;
+					shatterCount++;
+				}
+
+				i++;
+			}
+		}
+		else if (piecesType == AsteroidTypes::Small)
+		{
+			reset(asteroids[i]);
+		}
+	}
 
 	void init(Asteroid asteroids[])
 	{
@@ -84,99 +275,6 @@ namespace asteroid
 		}
 	}
 
-	void move(Asteroid& asteroid, float delta)
-	{
-		asteroid.pos = vector::getVectorSum(asteroid.pos, vector::getVectorMult(asteroid.dir, asteroid.speed * delta));
-		asteroid.hitBox.pos = asteroid.pos;
-	}
-
-	void spawnAsteroid(Asteroid asteroids[])
-	{
-		for (int i = 0; i < maxAsteroids; i++)
-		{
-			if (!asteroids[i].isOn)
-			{
-				setRandomSpawn(asteroids[i]);
-				asteroids[i].isOn = true;
-
-				return;
-			}
-		}
-	}
-
-	void setRandomSpawn(Asteroid& asteroid)
-	{
-		AsteroidSpawnPoint spawnPoint = static_cast<AsteroidSpawnPoint>(GetRandomValue(0, maxAsteroidSpawnPoints));
-		Vector2 pos = {};
-		Vector2 dir = {};
-		float randomAngle = static_cast<float>(GetRandomValue(0, 180));
-
-		switch (spawnPoint)
-		{
-		case asteroid::AsteroidSpawnPoint::Top:
-			pos.x = static_cast<float>(GetRandomValue(0, screen::screenWidth));
-			pos.y = 0;
-			break;
-
-		case asteroid::AsteroidSpawnPoint::Left:
-			pos.x = 0;
-			pos.y = static_cast<float>(GetRandomValue(0, screen::screenHeight));
-			randomAngle += randomAngle;
-			if (randomAngle >= 360)
-			{
-				randomAngle -= 360;
-			}
-			break;
-
-		case asteroid::AsteroidSpawnPoint::Right:
-			pos.x = screen::screenWidth;
-			pos.y = static_cast<float>(GetRandomValue(0, screen::screenHeight));
-			randomAngle += 90;
-			break;
-
-		case asteroid::AsteroidSpawnPoint::Bottom:
-			pos.x = static_cast<float>(GetRandomValue(0, screen::screenWidth));
-			pos.y = screen::screenHeight;
-			randomAngle += 180;
-			break;
-
-		default:
-			break;
-		}
-
-		asteroid.pos = pos;
-		dir = vector::getDir(randomAngle);
-		asteroid.dir = dir;
-	}
-
-	void outBounds(Asteroid& asteroid)
-	{
-		if (screen::isOutScreen(asteroid.pos))
-		{
-			if (asteroid.pos.x < 0)
-			{
-				asteroid.pos.x = screen::screenWidth;
-			}
-			else if (asteroid.pos.x > screen::screenWidth)
-			{
-				asteroid.pos.x = 0;
-			}
-			else if (asteroid.pos.y < 0)
-			{
-				asteroid.pos.y = screen::screenHeight;
-			}
-			else if (asteroid.pos.y > screen::screenHeight)
-			{
-				asteroid.pos.y = 0;
-			}
-		}
-	}
-
-	void rotate(Asteroid& asteroid, float delta)
-	{
-		asteroid.rotation += asteroidsRotationSpeed[static_cast<int>(asteroid.type)] * delta;
-	}
-
 	void reset(Asteroid& asteroid)
 	{
 		asteroid.isOn = false;
@@ -194,49 +292,6 @@ namespace asteroid
 		{
 			asteroids[currentAsteroid].hp = 0;
 			shatter(asteroids, currentAsteroid);
-		}
-	}
-
-	void shatter(Asteroid asteroids[], int toShatter)
-	{
-		AsteroidTypes piecesType = asteroidPiecesType[static_cast<int>(asteroids[toShatter].type)];
-
-		asteroids[toShatter].isOn = false;
-
-		Vector2 randomDir = vector::getDir(static_cast<float>(GetRandomValue(0,360)));
-		int shatterCount = 0;
-
-		int i = 0;
-		if (piecesType <= AsteroidTypes::Small)
-		{
-			while (shatterCount < maxShatter && i < maxAsteroids)
-			{
-				if (!asteroids[i].isOn)
-				{
-					asteroids[i].type = piecesType;
-
-					if (shatterCount % 2 != 0)
-					{
-						randomDir= vector::getVectorMult(randomDir, -1);
-					}
-
-					asteroids[i].dir = randomDir;
-
-					asteroids[i].pos = vector::getVectorSum(asteroids[toShatter].pos, vector::getVectorMult(asteroids[toShatter].dir,piecesShatterDistance));
-					asteroids[i].radius = asteroidsRadius[static_cast<int>(piecesType)];
-					asteroids[i].hitBox.radius = asteroids[i].radius;
-					asteroids[i].speed = asteroidsSpeed[static_cast<int>(piecesType)];
-					asteroids[i].dmg = asteroidsDamage[static_cast<int>(piecesType)];
-					asteroids[i].isOn = true;
-					shatterCount++;
-				}
-
-				i++;
-			}
-		}
-		else if (piecesType == AsteroidTypes::Small)
-		{
-			reset(asteroids[i]);
 		}
 	}
 }

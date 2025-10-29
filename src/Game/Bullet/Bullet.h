@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Game/Math/Form/Form.h"
 #include "Game/Asteroid/Asteroid.h"
 
 namespace bullet
@@ -27,7 +26,4 @@ namespace bullet
 	void update(Bullet bullets[], int bulletAmount, asteroid::Asteroid asteroids[], int& shipPoints, float delta);
 	void draw(Bullet bullets[], int bulletAmount);
 	void shoot(Bullet& bullet, Vector2 pos, Vector2 dir);
-	void outBounds(Bullet& bullet);
-	void resetBullet(Bullet& bullet);
-	void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[], int& shipPoints);
 }

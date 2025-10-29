@@ -1,10 +1,6 @@
-#include "Screen.h"
+#include "Game/Screen/Screen.h"
 
-#include <iostream>
-
-#include "raylib.h"
-
-#include "Game/Math/Vector/Vector.h"
+#include <string>
 
 namespace screen
 {

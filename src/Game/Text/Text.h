@@ -4,8 +4,6 @@
 
 #include "raylib.h"
 
-#include "Game/Math/Vector/Vector.h"
-
 namespace text
 {
 	struct Text

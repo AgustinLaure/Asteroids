@@ -1,17 +1,10 @@
 #pragma once
 
-#include <string>
-
-#include "raylib.h"
-
 #include "Game/Math/Form/Form.h"
-#include "Game/Math/Vector/Vector.h"
 #include "Game/Text/Text.h"
 
 namespace button
 {
-	const MouseButton actionButton = MOUSE_LEFT_BUTTON;
-
 	struct Button
 	{
 		static Sound onSelect;

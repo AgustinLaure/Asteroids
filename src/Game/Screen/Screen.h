@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game/Math/Vector/Vector.h"
+#include "raylib.h"
 
 namespace screen
 {

@@ -1,6 +1,5 @@
 #include "Game/Bullet/Bullet.h"
 
-#include "Game/Math/Vector/Vector.h"
 #include "Game/Screen/Screen.h"
 
 namespace bullet
@@ -8,10 +7,57 @@ namespace bullet
 	Sound Bullet::onLandHit;
 	Texture2D Bullet::sprite;
 
+	static void move(Bullet& bullet, float delta);
+	static void outBounds(Bullet& bullet);
+	static void resetBullet(Bullet& bullet);
+	static void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[], int& shipPoints);
+
 	static void move(Bullet& bullet, float delta)
 	{
 		bullet.pos = vector::getVectorSum(bullet.hitBox.pos, vector::getVectorMult(bullet.dir, bullet.speed * delta));
 		bullet.hitBox.pos = bullet.pos;
+	}
+
+
+	static void outBounds(Bullet& bullet)
+	{
+		if (screen::isOutScreen(bullet.pos))
+		{
+			resetBullet(bullet);
+		}
+	}
+
+	static void resetBullet(Bullet& bullet)
+	{
+		bullet.isOn = false;
+		bullet.pos = { 0,0 };
+		bullet.hitBox.pos = bullet.pos;
+		bullet.dir = { 1,0 };
+	}
+
+	static void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[], int& shipPoints)
+	{
+		for (int i = 0; i < asteroid::maxAsteroids; i++)
+		{
+			if (asteroids[i].isOn)
+			{
+				if (form::isCircleCollidingCircle(bullet.hitBox, asteroids[i].hitBox))
+				{
+					asteroid::takeDamage(asteroids, i, bullet.dmg);
+					resetBullet(bullet);
+
+					shipPoints += pointsPerHit;
+					if (asteroids[i].hp <= 0)
+					{
+						shipPoints += asteroid::asteroidsShatterPoints[static_cast<int>(asteroids[i].type)];
+					}
+
+					PlaySound(bullet.onLandHit);
+
+					return;
+				}
+			}
+		}
 	}
 
 	void initBullets(Bullet bullets[], int bulletAmount)
@@ -60,46 +106,5 @@ namespace bullet
 		bullet.hitBox.pos = pos;
 		bullet.dir = dir;
 		bullet.isOn = true;
-	}
-
-	void outBounds(Bullet& bullet)
-	{
-		if (screen::isOutScreen(bullet.pos))
-		{
-			resetBullet(bullet);
-		}
-	}
-
-	void resetBullet(Bullet& bullet)
-	{
-		bullet.isOn = false;
-		bullet.pos = { 0,0 };
-		bullet.hitBox.pos = bullet.pos;
-		bullet.dir = { 1,0 };
-	}
-
-	void hitAsteroid(Bullet& bullet, asteroid::Asteroid asteroids[], int& shipPoints)
-	{
-		for (int i = 0; i < asteroid::maxAsteroids; i++)
-		{
-			if (asteroids[i].isOn)
-			{
-				if (form::isCircleCollidingCircle(bullet.hitBox, asteroids[i].hitBox)) 
-				{
-					asteroid::takeDamage(asteroids, i, bullet.dmg);
-					resetBullet(bullet);
-
-					shipPoints += pointsPerHit;
-					if (asteroids[i].hp<= 0)
-					{
-						shipPoints += asteroid::asteroidsShatterPoints[static_cast<int>(asteroids[i].type)];
-					}
-
-					PlaySound(bullet.onLandHit);
-
-					return;
-				}
-			}
-		}
 	}
 }

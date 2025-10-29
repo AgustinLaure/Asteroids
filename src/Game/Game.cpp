@@ -1,14 +1,8 @@
 #include "Game/Game.h"
 
-#include <iostream>
-
-#include "raylib.h"
-
-#include "Game/Screen/Screen.h"
 #include "Game/Ship/Ship.h"
-#include "Game/Asteroid/Asteroid.h"
 #include "Game/MainMenu/MainMenu.h"
-#include "Game/GameScene.h"
+#include "Game/Screen/Screen.h"
 
 namespace game
 {

@@ -2,6 +2,8 @@
 
 namespace button
 {
+	const MouseButton actionButton = MOUSE_LEFT_BUTTON;
+
 	Sound Button::onSelect;
 
 	void init(Button& button,float width, float height, Vector2 pos, std::string text, float fontSize, float spacing, Color textColor, Color bckgColor)

@@ -15,40 +15,7 @@ namespace asteroid
 		None
 	};
 
-	const int maxAsteroids = 150;
 	const int maxAsteroidTypes = 3;
-	const int asteroidSpawnPercentage = 50;
-	const float asteroidSpawnCooldown = 0.25f;
-	const float piecesShatterDistance = 10.0f;
-	const int maxShatter = 2;
-
-	const float asteroidsRadius[maxAsteroidTypes] =
-	{
-		25.0f,
-		15.0f,
-		5.0f
-	};
-
-	const float asteroidsSpeed[maxAsteroidTypes] =
-	{
-		40.0f,
-		80.0f,
-		120.0f
-	};
-
-	const float asteroidsRotationSpeed[maxAsteroidTypes] =
-	{
-		50.0f,
-		100.0f,
-		150.0f
-	};
-
-	const int asteroidsHp[maxAsteroidTypes] =
-	{
-		1,
-		1,
-		1
-	};
 
 	const int asteroidsShatterPoints[maxAsteroidTypes] =
 	{
@@ -64,21 +31,8 @@ namespace asteroid
 		1
 	};
 
-	const AsteroidTypes asteroidPiecesType[maxAsteroidTypes] =
-	{
-		AsteroidTypes::Medium,
-		AsteroidTypes::Small,
-		AsteroidTypes::None
-	};
-
-	const int maxAsteroidSpawnPoints = 4;
-	enum class AsteroidSpawnPoint
-	{
-		Top,
-		Left,
-		Right,
-		Bottom
-	};
+	const int maxAsteroids = 150;
+	const float asteroidSpawnCooldown = 0.25f;
 
 	struct Asteroid
 	{
@@ -102,13 +56,7 @@ namespace asteroid
 	void init(Asteroid asteroids[]);
 	void update(Asteroid asteroids[], float& spawnCooldown, float delta);
 	void draw(Asteroid asteroids[]);
-	void move(Asteroid& asteroid, float delta);
-	void spawnAsteroid(Asteroid asteroids[]);
-	void setRandomSpawn(Asteroid& asteroid);
-	void outBounds(Asteroid& asteroid);
-	void rotate(Asteroid& asteroid, float delta);
 	void reset(Asteroid& asteroid);
 	void takeDamage(Asteroid asteroids[], int currentAsteroid, int damage);
-	void shatter(Asteroid asteroids[], int toShatter);
 }
 

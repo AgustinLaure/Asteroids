@@ -41,7 +41,7 @@ namespace mainMenu
 				"Play",						//text
 				buttonsFontSize,			//fontSize
 				2,							//spacing
-				WHITE							//color
+				WHITE						//color
 			},
 			//color
 			WHITE,

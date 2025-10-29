@@ -1,10 +1,6 @@
 #pragma once
 
-#include <string>
-
-#include "Game/Math/Vector/Vector.h"
 #include "Game/Button/Button.h"
-#include "Game/Text/Text.h"
 #include "Game/GameScene.h"
 
 namespace mainMenu
