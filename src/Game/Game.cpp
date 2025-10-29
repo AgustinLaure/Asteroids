@@ -178,7 +178,7 @@ namespace game
 				"Back",							//text
 				optionsFontSize,				//fontSize
 				2,								//spacing
-				RED								//color
+				WHITE								//color
 			},
 			//color
 			WHITE,
@@ -199,7 +199,7 @@ namespace game
 				"Restart",
 				optionsFontSize,
 				2,
-				RED
+				WHITE
 			},
 			//color
 			WHITE,
@@ -274,13 +274,14 @@ namespace game
 			DrawTextEx(GetFontDefault(), lostText.text.c_str(), lostText.pos, lostText.fontSize, lostText.spacing, lostText.color);
 		}
 	}
+
 	const float timeBetweenInput = 0.5f;
 
 	static void update(ship::Ship& ship, asteroid::Asteroid asteroids[], float& asteroidSpawnCooldown, float& delta);
 	static void drawPoints(int points);
 	static void drawHp(int hp);
 	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[]);
-	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], button::Button loseButtons[], float& asteroidsCooldown, bool& isGamePaused, bool& isGameLost, gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements, float delta);
+	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], button::Button loseButtons[], float& asteroidsCooldown, bool& isGamePaused, bool& isGameLost, gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements, Texture2D background, float delta);
 	static void mainMenu(gameScene::Scene& currentScene, mainMenu::SubScene& currentSubScene, button::Button titleScreenButtons[], button::Button rulesButtons[], button::Button creditsButtons[], bool ignoreMouse);
 	static void resetElements(ship::Ship& ship, asteroid::Asteroid asteroids[]);
 
@@ -307,15 +308,16 @@ namespace game
 		}
 	}
 
-	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[])
+	static void draw(ship::Ship ship, asteroid::Asteroid asteroids[], Texture2D background)
 	{
+		DrawTexturePro(background, { 0,0,static_cast<float>(background.width),static_cast<float>(background.height) }, { 0,0,screen::screenWidth*2.0f,screen::screenHeight*2.0f }, {screen::screenWidth,screen::screenHeight},0,WHITE);
 		ship::draw(ship);
 		asteroid::draw(asteroids);
 		drawHp(ship.hp);
 		drawPoints(ship.points);
 	}
 
-	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], button::Button loseButtons[], float& asteroidsCooldown, bool& isGamePaused, bool& isGameLost, gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements, float delta)
+	static void playing(ship::Ship& ship, asteroid::Asteroid asteroids[], button::Button pauseButtons[], button::Button loseButtons[], float& asteroidsCooldown, bool& isGamePaused, bool& isGameLost, gameScene::Scene& currentScene, bool& ignoreMouse, bool& resetElements, Texture2D background, float delta)
 	{
 		isGameLost = !ship.isAlive;
 
@@ -340,7 +342,7 @@ namespace game
 		BeginDrawing();
 		ClearBackground(BLACK);
 
-		draw(ship, asteroids);
+		draw(ship, asteroids, background);
 
 		if (isGameLost)
 		{
@@ -404,6 +406,8 @@ namespace game
 		SetMusicVolume(menuMusic, 0.5f);
 		SetMusicVolume(gameMusic, 0.5f);
 
+		Texture2D background = LoadTexture("res/sprite/background/background.png");
+
 		bool isGamePaused = false;
 		bool ignoreMouse = false;
 		bool resetGameElements = false;
@@ -431,7 +435,7 @@ namespace game
 				}
 
 				UpdateMusicStream(gameMusic);
-				playing(ship, asteroids, pauseButtons, lostButtons, asteroidsCooldown, isGamePaused, isGameLost, currentScene, ignoreMouse, resetGameElements, delta);
+				playing(ship, asteroids, pauseButtons, lostButtons, asteroidsCooldown, isGamePaused, isGameLost, currentScene, ignoreMouse, resetGameElements, background, delta);
 				break;
 			case gameScene::Scene::MainMenu:
 				if (!IsMusicStreamPlaying(menuMusic))
@@ -464,6 +468,11 @@ namespace game
 		UnloadSound(ship.onShoot);
 
 		UnloadTexture(ship.sprite);
+		UnloadTexture(asteroid::Asteroid::bigAsteroidSprite);
+		UnloadTexture(asteroid::Asteroid::medAsteroidSprite);
+		UnloadTexture(asteroid::Asteroid::smallAsteroidSprite);
+		UnloadTexture(bullet::Bullet::sprite);
+		UnloadTexture(background);
 
 		CloseAudioDevice();
 		screen::closeWindow();

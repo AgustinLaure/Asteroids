@@ -382,8 +382,8 @@ namespace mainMenu
 				CreditsColor
 			},
 			{
-				{},
-				"",
+				{CreditsX+425,400},
+				"and -drakzlin",
 				CreditsFontSize,
 				CreditsSpacing,
 				CreditsColor
